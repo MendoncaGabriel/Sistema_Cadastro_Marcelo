@@ -17,11 +17,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, './src/public')));
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 //routers
-const pageRouter = require('./src/routes/page/router');
+const react = require('./src/routes/page/router');
 const authRouter = require('./src/routes/auth/auth')
-app.use('/', pageRouter);
+app.use('/', react);
 app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler

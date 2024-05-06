@@ -2,7 +2,8 @@ const jwt = require('../utilities/jwt');
 
 async function checkAuth(req, res, next){
     const authorizationHeaders = req.headers.authorization;
-    const token = authorizationHeaders.split(' ')[1];
+    const token = authorizationHeaders?.split(' ')[1];
+    if(!authorizationHeaders || !token) return res.status(401).json({msg: 'Acesso negado!, sem token'});
 
 
     //verificar se possue token

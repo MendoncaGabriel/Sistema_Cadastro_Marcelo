@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const pageController = require('../../controllers/page/router');
+const path = require('path')
 
-router.get('/', pageController.home);
+// Servir arquivos estáticos do diretório 'build' do React
+
+router.get('/', (req, res)=>{
+    res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+});
 
 module.exports = router;
