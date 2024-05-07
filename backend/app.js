@@ -19,11 +19,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, './src/public')));
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 
-//routers
+//Rotas
 const react = require('./src/routes/page/router');
-const authRouter = require('./src/routes/auth/auth')
+const authRouter = require('./src/routes/auth/auth');
+const adminRouter = require('./src/routes/admin/admin');
 app.use('/', react);
 app.use('/auth', authRouter);
+app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

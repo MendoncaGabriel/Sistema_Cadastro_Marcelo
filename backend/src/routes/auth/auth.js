@@ -1,22 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const routerController = require('../../controllers/auth/auth');
-const checkAuth = require('../../middleware/checkAuth');
-const checkAuthAdmin = require('../../middleware/checkAuthAdmin');
-
-//REGISTRADORES---------------------------------------------------
-router.post('/login', routerController.registradorLogin); 
 
 
-//ADMIN-----------------------------------------------------------
-router.post('/admin/login', routerController.loginAdmin); 
-router.post('/admin/signup', checkAuthAdmin, routerController.signupAdmin); 
-router.post('/admin/novo-registrador', checkAuthAdmin, routerController.registradorSignup); 
+// Controllers
+const adminController = require('../../controllers/admin/admin');
+const registradorController = require('../../controllers/registrador/registrador');
 
 
-//TESTES------------------------------------------------------------
-router.get('/teste', checkAuth, (req, res) => {
-    res.send('logado')
-})
+
+//ROTAS REGISTRADORES
+router.post('/login', registradorController.login); 
+
+//ROTAS ADMIN
+router.post('/admin/login', adminController.login); 
+
+
+
 
 module.exports = router;

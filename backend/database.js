@@ -16,8 +16,8 @@ connection.connect((error) => {
     }
 
     // Feche a conexão após o teste, seja bem-sucedido ou não
-    connection.end();
-    console.log('===> FINISH: de Conecção finalizado')
+    // connection.end();
+    // console.log('===> FINISH: de Conecção finalizado')
 });
 
 module.exports = connection; 
