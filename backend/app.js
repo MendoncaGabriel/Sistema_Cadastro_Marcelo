@@ -21,11 +21,13 @@ app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 //Rotas
 const react = require('./src/routes/page/router');
-const authRouter = require('./src/routes/auth/auth');
-const adminRouter = require('./src/routes/admin/admin');
+const authRouter = require('./src/routes/authRouter');
+const adminRouter = require('./src/routes/adminRouter');
+const pessoaRouter = require('./src/routes/pessoaRouter');
 app.use('/', react);
 app.use('/auth', authRouter);
 app.use('/admin', adminRouter);
+app.use('/pessoa', pessoaRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

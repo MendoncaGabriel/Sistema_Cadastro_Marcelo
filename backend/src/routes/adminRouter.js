@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 // Controllers
-const adminController = require('../../controllers/admin/admin');
+const adminController = require('../controllers/adminController');
 
 // Middlewares
-const checkAuthAdmin = require('../../middleware/checkAuth');
+const checkAuthAdmin = require('../middleware/checkAuth');
 
 // Rotas
 router.post('/novo-registrador', checkAuthAdmin, adminController.novoRegistrador); 

@@ -1,18 +1,8 @@
-const authModel = require('../../models/admin/auth');
-const adminModel = require('../../models/admin/admin')
+
+
+const adminModel = require('../models/adminModel');
 
 module.exports = {
-    login: async (req, res) => {
-        try {
-            const {login, password} = req.body;
-            if(!login || !password) return res.status(400).json({msg: 'Login e password são obrigatorios!'});
-    
-            const result = await authModel.login(login, password);
-            res.status(200).json({msg: 'Usuario Admin logado com sucesso!', token: result.token})
-        } catch (error) {
-            res.status(401).json({msg: error.message})
-        }
-    },
 
     novoRegistrador: async (req, res) => { 
         try {
@@ -37,7 +27,7 @@ module.exports = {
     removerRegistrador: async (req, res) => {
         try {
             const id = req.params.id
-            const result = await adminModel.removerRegistrador(id)
+            const result = await adminModel.removerRegistrador(id);
             console.log(result)
             res.status(200).json({msg: "usuario registrador foi removido"})
             

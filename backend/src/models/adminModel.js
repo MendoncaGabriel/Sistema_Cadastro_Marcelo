@@ -1,5 +1,6 @@
-const executeSql = require('../../utilities/executeSql');
+
 const bycript = require('bcryptjs')
+const db = require('../../database')
 
 async function verificarUsuarioExiste(login, name, email){
     const usuarioExist = [];
@@ -9,7 +10,15 @@ async function verificarUsuarioExiste(login, name, email){
         try {
             const sql = "SELECT * FROM registradores WHERE login = ?"
             const values = [login]
-            const result = await executeSql(sql, values)
+            const result = await new Promise((resolve, reject) => {
+                db.query(sql, values, (error, data) => {
+                    if(error){
+                        reject(error)
+                    }else{
+                        resolve(data)
+                    }
+                })
+            })
             res(result.length > 0)
         } catch (error) {
             rej(error)
@@ -21,7 +30,15 @@ async function verificarUsuarioExiste(login, name, email){
         try {
             const sql = "select * from registradores where name = ?"
             const values = [name];
-            const resolve = await executeSql(sql, values)
+            const resolve = await new Promise((resolve, reject) =>{
+                db.query(sql, values, (error, data) => {
+                    if(error){
+                        reject(error)
+                    }else{
+                        resolve(data)
+                    }
+                })
+            })
             res(resolve.length > 0)
         } catch (error) {
             rej(error)
@@ -33,7 +50,15 @@ async function verificarUsuarioExiste(login, name, email){
         try {
             const sql = "select * from registradores where email = ?"
             const values = [email]
-            const result = await executeSql(sql, values)
+            const result = await new Promise((resolve, reject) => {
+                db.query(sql, values, (error, data) => {
+                    if(error){
+                        reject(error)
+                    }else{
+                        resolve(data)
+                    }
+                })
+            })
             res(result > 0)
         } catch (error) {
             rej(error)
@@ -63,8 +88,17 @@ module.exports = {
           
             //gravar usuario no banco
             const sql = "insert into  registradores (login, password, name, email) values (?, ?, ?, ?)"
-            const values = [login, passwordhash, name, email]
-            const result = await executeSql(sql, values)
+            const values = [login, passwordhash, name, email];
+
+            const result = await new Promise((resolve, reject) => {
+                db.query(sql, values, (error, data) => {
+                    if(error){
+                        reject(error)
+                    }else{
+                        resolve(data)
+                    }
+                })
+            })
             return {msg: 'Registrador cadastrado com sucesso', insertId: result.insertId}
         } catch (error) {
             throw new Error(error)
@@ -74,7 +108,15 @@ module.exports = {
         try {
             const sql = 'delete from registradores where id = ?'
             const values = [id]
-            const result = await executeSql(sql, values)
+            const result = await new Promise((resolve, reject) => {
+                db.query(sql, values, (error, data) => {
+                    if(error){
+                        reject(error)
+                    }else{
+                        resolve(data)
+                    }
+                })
+            })
             if(result.affectedRows == 0) throw new Error('Virifique id de registradores')
            
             return result
