@@ -1,7 +1,7 @@
 const db = require('../../database');
 
 module.exports = {
-    novaPessoa: async (pessoaData) => {
+    createPessoa: async (pessoaData) => {
         const {nome, telefone, email, zona, secao, cpf, rg, data, rua, bairro, cep, numero, complemento, cidade, estado, pais, registradores_id} = pessoaData;
         if (!nome) throw new Error("Sem nome");
         if (!telefone) throw new Error("Sem telefone");
@@ -40,5 +40,33 @@ module.exports = {
         } catch (error) {
             throw error; // Lançar o erro para ser tratado no código de chamada
         }
+    },
+    getPessoaById: async (id) =>{
+        const sql = "SELECT * FROM pessoas WHERE id = ?";
+        const values = [id];
+
+        return new Promise((resolve, reject) => {
+            db.query(sql, values, (error, data) => {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(data)
+                }
+            })
+        })
+    },
+    deletePessoa: async (id) => {
+        const sql = "DELETE FROM pessoas WHERE id = ?";
+        const values = [id];
+
+        return new Promise((resolve, reject)=> {
+            db.query(sql, values, (error, data) => {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(data)
+                }
+            })
+        })
     }
 }    
