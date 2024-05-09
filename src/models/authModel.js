@@ -26,7 +26,9 @@ module.exports = {
         if(testePassword == false) throw new Error('Senha invalida!');
         console.log('===> TesteSenha: ', testePassword)
 
-        const payload = {login, password, id: result[0].id, date: new Date()}
+
+
+        const payload = {login, password, userType: "registrador", id: result[0].id, date: new Date()}
         const validade = '30d'
         const secret = process.env.SECRET_JWT
         const token = await jwt.sign(payload, secret, { expiresIn: validade });
@@ -40,8 +42,12 @@ module.exports = {
     
         if (Login !== login) throw new Error('Login inválido');
         if (Pass !== password) throw new Error('Senha inválida');
+
+        const userType = login == process.env.USER_ADMIN && password == process.env.PASS_ADMIN ? "admin" : "registrador";
+
+        
+        const payload = {login, password, userType, data: new Date()};
     
-        const payload = {login, password, data: new Date()};
         const expiresIn = '30d'
         const token = jwt.sign(payload, process.env.SECRET_JWT, { expiresIn });
         
