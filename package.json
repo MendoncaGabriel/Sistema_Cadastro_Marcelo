@@ -11,7 +11,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www"
+    "dev": "nodemon ./bin/www",
+    "css": "npx tailwindcss -i ./input.css -o ./src/public/css/tailwindcss.css --watch"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

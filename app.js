@@ -7,7 +7,6 @@ require('dotenv').config()
 
 const app = express();
 
-
 // view engine setup
 app.set('views', path.join(__dirname, './src/views'));
 app.set('view engine', 'ejs');
@@ -16,14 +15,14 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, './src/public')));
-app.use(express.static(path.join(__dirname, '../frontend/build')));
+app.use('/css', express.static(path.join(__dirname, 'src/public/css')));
 
 //Rotas
-const react = require('./src/routes/page/router');
+const react = require('./src/routes/pageRouter');
 const authRouter = require('./src/routes/authRouter');
 const adminRouter = require('./src/routes/adminRouter');
 const pessoaRouter = require('./src/routes/pessoaRouter');
+
 app.use('/', react);
 app.use('/auth', authRouter);
 app.use('/admin', adminRouter);
