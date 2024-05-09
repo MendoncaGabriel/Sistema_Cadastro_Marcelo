@@ -4,7 +4,7 @@ module.exports = {
     createPessoa: async (req, res) => {
         try {
             const idUsuario = req.locals.id
-            if(!id) throw new Error('Sem idUsuario');
+            if(!idUsuario) throw new Error('Sem idUsuario');
 
             const data = req.body;
             data.registradores_id = idUsuario;
@@ -27,10 +27,12 @@ module.exports = {
             res.status(500).json({msg: error.message})
         }
     },
-    getPessoaByOffset: (req, res) => {
+    getPessoaByOffset: async (req, res) => {
         try {
-            const offset = req.params.offset || 1;
-            const limit = req.query.limit || 10;
+            const offset = parseInt(req.params.offset || 1);
+            const limit = parseInt(req.query.limit || 10);
+            const result = await pessoaModel.getPessoaByOffset(offset, limit);
+            res.status(200).json({msg: "Consulta realizada com sucesso", result})
             
         } catch (error) {
             res.status(500).json({msg: error.message})

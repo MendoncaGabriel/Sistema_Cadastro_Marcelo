@@ -23,7 +23,6 @@ module.exports = {
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         `;
    
-    
         try {
             const result = await new Promise((resolve, reject) => {
                 const date = new Date()
@@ -60,6 +59,20 @@ module.exports = {
         const values = [id];
 
         return new Promise((resolve, reject)=> {
+            db.query(sql, values, (error, data) => {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(data)
+                }
+            })
+        })
+    },
+    getPessoaByOffset: async (offset, limit) => {
+        const sql = "SELECT * FROM pessoas LIMIT ? OFFSET ?";
+        const values = [limit, offset];
+
+        return new Promise((resolve, reject) => {
             db.query(sql, values, (error, data) => {
                 if(error){
                     reject(error)
