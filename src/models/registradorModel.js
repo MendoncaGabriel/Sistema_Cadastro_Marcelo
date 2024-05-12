@@ -1,6 +1,6 @@
+const db = require('../../database');
+const bycript = require('bcryptjs');
 
-const bycript = require('bcryptjs')
-const db = require('../../database')
 
 async function verificarUsuarioExiste(login, name, email){
     const usuarioExist = [];
@@ -75,8 +75,37 @@ async function verificarUsuarioExiste(login, name, email){
 }
 
 module.exports = {
+    getRegistradoresByOffset: (offset, limit) => {
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT id, name, login, email, date FROM registradores  LIMIT ? OFFSET ?";
+            const values = [limit, offset];
 
-    novoRegistrador: async (login, password, name, email) => {
+            db.query(sql, values, (error, data) => {
+                if(error){
+                    reject(error);
+                }else{
+                    resolve(data);
+                };
+            });
+
+        });
+    },
+    getById: (id) => {
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT email, id, login, name FROM registradores  WHERE id = ?";
+            const values = [id];
+
+            db.query(sql, values, (error, data) => {
+                if(error){
+                    reject(error);
+                }else{
+                    resolve(data);
+                };
+            });
+
+        });
+    },
+    createRegistrador: async (login, password, name, email) => {
         try {
             //Verificar se usuario existe
             const usuarioExist = await verificarUsuarioExiste(login, name, email);
@@ -87,8 +116,9 @@ module.exports = {
             const passwordhash = await bycript.hash(password, salt)
           
             //gravar usuario no banco
-            const sql = "insert into  registradores (login, password, name, email) values (?, ?, ?, ?)"
-            const values = [login, passwordhash, name, email];
+            const sql = "insert into  registradores (login, password, name, email, date) values (?, ?, ?, ?, ?)"
+            const date = new Date();
+            const values = [login, passwordhash, name, email, date];
 
             const result = await new Promise((resolve, reject) => {
                 db.query(sql, values, (error, data) => {
@@ -100,6 +130,32 @@ module.exports = {
                 })
             })
             return {msg: 'Registrador cadastrado com sucesso', insertId: result.insertId}
+        } catch (error) {
+            throw new Error(error)
+        }
+    },
+    updateRegistrador: async (login, password, name, email, id) => {
+        try {
+  
+            //criptografar senha
+            const salt = await bycript.genSalt(10);
+            const passwordhash = await bycript.hash(password, salt)
+          
+            //gravar usuario no banco
+            const sql = "UPDATE registradores SET login = ?, password = ?, name = ?, email = ?, date = ? WHERE id = ?;";
+            const date = new Date();
+            const values = [login, passwordhash, name, email, date, id];
+
+            const result = await new Promise((resolve, reject) => {
+                db.query(sql, values, (error, data) => {
+                    if(error){
+                        reject(error)
+                    }else{
+                        resolve(data)
+                    }
+                })
+            })
+            return {msg: 'Registrador atualizado com sucesso', insertId: result.insertId}
         } catch (error) {
             throw new Error(error)
         }

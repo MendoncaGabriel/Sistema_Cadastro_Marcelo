@@ -23,12 +23,12 @@ app.use('/', express.static(path.join(__dirname, 'src/public/assets')));
 //Rotas
 const page = require('./src/routes/pageRouter');
 const authRouter = require('./src/routes/authRouter');
-const adminRouter = require('./src/routes/adminRouter');
+const redistradorRouter = require('./src/routes/registradorRouter');
 const pessoaRouter = require('./src/routes/pessoaRouter');
 
 app.use('/', page);
 app.use('/auth', authRouter);
-app.use('/admin', adminRouter);
+app.use('/registrador', redistradorRouter);
 app.use('/pessoa', pessoaRouter);
 
 // catch 404 and forward to error handler
