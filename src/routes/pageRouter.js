@@ -7,13 +7,11 @@ const pageController = require('../controllers/pageController');
 const checkAuth = require('../middleware/checkAuth');
 const somenteAdmin = require('../middleware/somenteAdmin')
 
-
-
-
 router.get('/login', pageController.login);
 
 //Protegidos
 router.get('/', checkAuth, pageController.home);
 router.get('/cadastro-registrador', checkAuth, somenteAdmin,  pageController.cadastroRegistrador);
+router.get('/cadastro-pessoa', checkAuth, pageController.cadastroPessoa);
 
 module.exports = router;

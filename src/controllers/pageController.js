@@ -22,5 +22,8 @@ module.exports = {
         };
 
         res.render('cadastroRegistrador', data)
+    },
+    cadastroPessoa: async (req, res) => {
+        res.render('cadastroPessoa')
     }
 }
