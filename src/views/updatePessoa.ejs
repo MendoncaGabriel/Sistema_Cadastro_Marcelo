@@ -18,11 +18,11 @@
         <h2 class="sm:col-span-2 md:col-span-3 lg:col-span-4 border-b-2 font-semibold">PRINCIPAL</h2>
         <div class="flex flex-col">
             <label for="text" class="text-sm">Nome completo</label>
-            <input value="<%= pessoa.nome ?? '' %>" type="text" name="nome"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+            <input value="<%= pessoa.nome || '' %>" type="text" name="nome"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
         </div>
         <div class="flex flex-col">
           <label for="data_nascimento" class="text-sm">Data de Nascimento</label>
-          <input value="<%= pessoa.data_nascimento ?? '' %>" type="text" name="data_nascimento" onkeypress="mascara(this, '##/##/####')" maxlength="10"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+          <input value="<%= pessoa.data_nascimento || '' %>" type="text" name="data_nascimento" onkeypress="mascara(this, '##/##/####')" maxlength="10"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
         </div>
         <div class="flex flex-col">
           <label for="text" class="text-sm">Zona</label>
@@ -43,24 +43,24 @@
         </div>
         <div class="flex flex-col">
             <label for="secao" class="text-sm">Seção</label>
-            <input value="<%= pessoa.secao ?? '' %>" type="text" name="secao" maxlength="4"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+            <input value="<%= pessoa.secao || '' %>" type="text" name="secao" maxlength="4"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
         </div>
         <div class="flex flex-col">
             <label for="email" class="text-sm">E-mail</label>
-            <input value="<%= pessoa.email ?? %>" type="email" name="email"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+            <input value="<%= pessoa.email || '' %>" type="email" name="email"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
         </div>
         <div class="flex flex-col">
             <label for="text" class="text-sm">Telefone</label>
-            <input <%= pessoa.telefone ?? '' %> type="tel" name="telefone" onkeypress="mascara(this, '(##) #####-####')" maxlength="15"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+            <input value="<%= pessoa.telefone || '' %>" type="tel" name="telefone" onkeypress="mascara(this, '(##) #####-####')" maxlength="15"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
         </div>
  
         <div class="flex flex-col">
             <label for="cpf" class="text-sm">CPF</label>
-            <input value="<%= pessoa.cpf ?? '' %>" required type="text" name="cpf" onkeypress="mascara(this, '###.###.###-##')" maxlength="14"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+            <input value="<%= pessoa.cpf || '' %>" required type="text" name="cpf" onkeypress="mascara(this, '###.###.###-##')" maxlength="14"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
         </div>
         <div class="flex flex-col">
             <label for="rg" class="text-sm">RG</label>
-            <input value="<%= pessoa.rg ?? '' %>"  type="text" name="rg" onkeypress="mascara(this, '#######-#')" maxlength="9" class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+            <input value="<%= pessoa.rg || '' %>"  type="text" name="rg" onkeypress="mascara(this, '#######-#')" maxlength="9" class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
         </div>
 
 
@@ -69,45 +69,43 @@
         <h2 class="sm:col-span-2 md:col-span-3 lg:col-span-4 border-b-2 font-semibold">ENDEREÇO</h2>
         <div class="flex flex-col">
             <label for="cep" class="text-sm">CEP</label>
-            <input value="<%= pessoa.cep ?? '' %>" id="inputCep" type="text" name="cep" onkeypress="mascara(this, '#####-###')" maxlength="9"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+            <input value="<%= pessoa.cep || '' %>" id="inputCep" type="text" name="cep" onkeypress="mascara(this, '#####-###')" maxlength="9"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
         </div>
         <div class="flex flex-col">
             <label for="rua" class="text-sm">Rua</label>
-            <input value="<%= pessoa.rua ?? '' %>" type="text" name="rua"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+            <input value="<%= pessoa.rua || '' %>" type="text" name="rua"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
         </div>
         <div class="flex flex-col">
             <label for="bairro" class="text-sm">Bairro</label>
-            <input value="<%= pessoa.bairro ?? '' %>" type="text" name="bairro"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+            <input value="<%= pessoa.bairro || '' %>" type="text" name="bairro"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
         </div>
-    
         <div class="flex flex-col">
             <label for="numero" class="text-sm">Numero da Casa</label>
-            <input value="" type="text" name="numero" maxlength="5"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+            <input value="<%= pessoa.numero || '' %>" type="text" name="numero" maxlength="5"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
         </div>
         <div class="flex flex-col">
             <label for="complemento" class="text-sm">Complemento</label>
-            <input type="text" name="complemento"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+            <input value="<%= pessoa.complemento || '' %>" type="text" name="complemento"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
         </div>
         <div class="flex flex-col">
             <label for="cidade" class="text-sm">Cidade</label>
-            <input type="text" name="cidade" value="Manaus" class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+            <input value="<%= pessoa.cidade || '' %>" type="text" name="cidade" value="Manaus" class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
         </div>
         <div class="flex flex-col">
             <label for="estado" class="text-sm" >Estado</label>
-            <input type="text" name="estado" value="AM"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+            <input value="<%= pessoa.estado || '' %>" type="text" name="estado" value="AM"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
         </div>
         <div class="flex flex-col">
             <label for="pais" class="text-sm">Pais</label>
-            <input type="text" name="pais" value="Brasil" class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+            <input value="<%= pessoa.pais || '' %>" type="text" name="pais" value="Brasil" class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
         </div>
-
         <div class="sm:col-span-2 md:col-span-3 lg:col-span-4">
-            <button type="submit" class="rounded-sm ml-auto px-4 py-3 bg-green-600 hover:bg-green-500 duration-200 flex items-center justify-center space-x-2 font-bold text-xl text-white ">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                  </svg>
-                <span>Finalizar Cadastro</span>
-            </button>
+          <button type="submit" class="rounded-sm ml-auto px-4 py-3 bg-blue-600 hover:bg-blue-500 duration-200 flex items-center justify-center space-x-2 font-bold text-xl text-white ">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+              </svg>
+            <span>Atualizar Cadastro</span>
+          </button>
         </div>
     </form>
 </section>
