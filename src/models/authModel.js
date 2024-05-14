@@ -8,11 +8,11 @@ module.exports = {
         if (!login || !password) throw new Error('Login ou senha inválidos');
 
         //VERIFICAR TIPO DE USUSARIO
-        const userType = login == process.env.USER_ADMIN && password == process.env.PASS_ADMIN ? "admin" : "registrador";
+        const typeUser = login == process.env.USER_ADMIN && password == process.env.PASS_ADMIN ? "admin" : "registrador";
        
-        if(userType == "admin"){      
+        if(typeUser == "admin"){      
             //CRIANDO TOKEN DE ACESSO         
-            const payload = {login, password, userType, data: new Date()};
+            const payload = {login, password, typeUser, data: new Date()};
             const expiresIn = '30d'
             const token = jwt.sign(payload, process.env.SECRET_JWT, { expiresIn });
             
@@ -41,7 +41,7 @@ module.exports = {
             if(checkPassword == false) throw new Error('Senha invalida!');
 
             //CRIANDO TOKEN DE ACESSO
-            const payload = {login, password, userType: "registrador", id: result[0].id, date: new Date()};
+            const payload = {login, password, typeUser: "registrador", id: result[0].id, date: new Date()};
             const validade = '30d'
             const secret = process.env.SECRET_JWT
             const token = jwt.sign(payload, secret, { expiresIn: validade });

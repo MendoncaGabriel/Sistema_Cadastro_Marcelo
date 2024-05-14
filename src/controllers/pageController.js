@@ -38,7 +38,10 @@ module.exports = {
         res.render('login')
     },
     home: (req, res) => {
-        res.render('home')
+        const data = {
+            typeUser: req.locals.typeUser
+        }
+        res.render('home', data)
     },
     cadastroRegistrador: async (req, res) => {
         const offset = req.query.offset || 0;
@@ -51,6 +54,7 @@ module.exports = {
             registradores: registradoresByOffset || [],
             status: status,
             msg: msg,
+            typeUser: req.locals.typeUser
             
         };
         res.render('cadastroRegistrador', data)
@@ -58,7 +62,8 @@ module.exports = {
     cadastroPessoa: async (req, res) => {
         const zonasEleirorais = await getZonas();
         const data = {
-            zonasEleirorais: zonasEleirorais
+            zonasEleirorais: zonasEleirorais,
+            typeUser: req.locals.typeUser
         }
   
         res.render('cadastroPessoa', data)
@@ -68,11 +73,19 @@ module.exports = {
         const offset = req.query.offset || 0
         const pessoas = await pessoaModel.getPessoaByOffset(offset, limit)
         const data = {
-            pessoas: pessoas
+            pessoas: pessoas,
+            typeUser: req.locals.typeUser
         }
         res.render('listaPessoa', data)
     },
     updatePessoa: async (req, res) => {
-        res.render('updatePessoa')
+        const id = req.query.ref;
+        const pessoa = await  pessoaModel.getPessoaById(id);
+
+        const data = {
+            pessoa: pessoa[0],
+            typeUser: req.locals.typeUser
+        }
+        res.render('updatePessoa', data)
     }
 }

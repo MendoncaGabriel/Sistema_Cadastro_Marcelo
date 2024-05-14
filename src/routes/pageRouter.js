@@ -7,13 +7,15 @@ const pageController = require('../controllers/pageController');
 const checkAuth = require('../middleware/checkAuth');
 const somenteAdmin = require('../middleware/somenteAdmin')
 
+
+
 router.get('/login', pageController.login);
 
 //Protegidos
 router.get('/', checkAuth, pageController.home);
 router.get('/cadastro-registrador', checkAuth, somenteAdmin,  pageController.cadastroRegistrador);
 router.get('/cadastro-pessoa', checkAuth, pageController.cadastroPessoa);
-router.get('/lista-pessoa', checkAuth, pageController.getPessoaByOffset);
-router.get('/editar-pessoa/:id', checkAuth, pageController.updatePessoa);
+router.get('/pessoas-cadastradas', checkAuth, pageController.getPessoaByOffset);
+router.get('/editar-pessoa', checkAuth, pageController.updatePessoa);
 
 module.exports = router;

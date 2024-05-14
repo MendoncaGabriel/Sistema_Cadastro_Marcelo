@@ -15,11 +15,12 @@ async function checkAuth(req, res, next){
         //verificar se token e valido
         const checkToken = await jwt.verify(token, secret_jwt);
         if(checkToken.valid == false) throw new Error('Acesso negado!, token invalido');
+        console.log(checkToken)
 
         //SALVANDO NA REQUISIÇÃO INFORMAÇÕES DO USUARIO
         req.locals = {
-            id: checkToken.id || checkToken?.userType == 'admin' ? 1 : null,
-            userType: checkToken?.userType
+            id: checkToken.id || checkToken?.typeUser == 'admin' ? 1 : null,
+            typeUser: checkToken?.typeUser
         };
         // console.log(req.locals)
         next();

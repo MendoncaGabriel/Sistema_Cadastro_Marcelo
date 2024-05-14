@@ -11,25 +11,24 @@
     <link rel="stylesheet" href="tailwindcss.css">
 </head>
 <body class="bg-gray-200 text-gray-600">
-    <!--  -->
-    <%- include('components/navbar') %>
+
   
+    <div class="bg-c1 p-4 flex-none max-w-screen-lg m-auto flex items-center  space-x-4 text-white relative">
+        <p class="absolute bottom-1 right-2 text-gray-300">referência: gabriel - #123</p>
+        <img src="logo.png" class="w-16" alt="">
+        <h2 class="text-2xl font-bold">CADASTRA AI!</h2>
+    </div>
     <section class="bg-white max-w-screen-lg min-h-80 m-auto md:p-10 p-5 shadow-lg flex items-center justify-center">
         <form action="/pessoa/create", method="post" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-5 w-full">
             <!-- PRINCIPAL -->
             <h2 class="sm:col-span-2 md:col-span-3 lg:col-span-4 border-b-2 font-semibold">PRINCIPAL</h2>
             <div class="flex flex-col">
-                <label for="text" class="text-sm">Nome</label>
+                <label for="text" class="text-sm">Nome completo</label>
                 <input type="text" name="nome"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
             </div>
             <div class="flex flex-col">
-
-                <label for="text" class="text-sm">Telefone</label>
-                <input type="tel" name="telefone" onkeypress="mascara(this, '(##) #####-####')" maxlength="15"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
-            </div>
-            <div class="flex flex-col">
-                <label for="email" class="text-sm">E-mail</label>
-                <input type="email" name="email"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+                <label for="data_nascimento" class="text-sm">Data de Nascimento</label>
+                <input type="text" name="data_nascimento" onkeypress="mascara(this, '##/##/####')" maxlength="10"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
             </div>
             <div class="flex flex-col">
                 <label for="text" class="text-sm">Zona</label>
@@ -39,15 +38,22 @@
                         <% zonasEleirorais.forEach(element => { %>
                             <option value="<%=element.numero_zona  %>"><%= element.numero_zona  %></option>
                         <% }) %>
-
                     <% } %>
                 </select>
             </div>
-
             <div class="flex flex-col">
                 <label for="secao" class="text-sm">Seção</label>
                 <input type="text" name="secao" maxlength="4"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
             </div>
+            <div class="flex flex-col">
+                <label for="email" class="text-sm">E-mail</label>
+                <input type="email" name="email"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+            </div>
+            <div class="flex flex-col">
+                <label for="text" class="text-sm">Telefone</label>
+                <input type="tel" name="telefone" onkeypress="mascara(this, '(##) #####-####')" maxlength="15"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+            </div>
+     
             <div class="flex flex-col">
                 <label for="cpf" class="text-sm">CPF</label>
                 <input required type="text" name="cpf" onkeypress="mascara(this, '###.###.###-##')" maxlength="14"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
@@ -56,10 +62,7 @@
                 <label for="rg" class="text-sm">RG</label>
                 <input  type="text" name="rg" onkeypress="mascara(this, '#######-#')" maxlength="9" class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
             </div>
-            <div class="flex flex-col">
-                <label for="data_nascimento" class="text-sm">Data de Nascimento</label>
-                <input type="text" name="data_nascimento" onkeypress="mascara(this, '##/##/####')" maxlength="10"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
-            </div>
+ 
 
             <!-- ENDEREÇO -->
 
