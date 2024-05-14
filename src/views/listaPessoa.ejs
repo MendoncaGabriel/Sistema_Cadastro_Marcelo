@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Pessoas</title>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <!-- BOOTSTRAP ICONS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  <!-- TAILWINDCSS -->
+  <link rel="stylesheet" href="tailwindcss.css">
+
+</head>
+<body class="bg-gray-200 text-gray-600">
+  <%- include('components/navbar') %>
+
+  <% function converterParaPtBr(dataHora) {
+    const data = new Date(dataHora);
+    const dia = data.getDate().toString().padStart(2, '0');
+    const mes = (data.getMonth() + 1).toString().padStart(2, '0');
+    const ano = data.getFullYear();
+    const horas = data.getHours().toString().padStart(2, '0');
+    const minutos = data.getMinutes().toString().padStart(2, '0');
+    return `${dia}/${mes}/${ano} -  ${horas}h:${minutos}min`;
+  }%>
+
+  <section class="bg-white max-w-screen-xl min-h-80 m-auto p-10 shadow-lg  ">
+  
+    <!-- LISTA DE REGISTRADORES -->
+    <table class="m-auto mb-10">
+      <caption class="text-lg font-semibold">PESSOAS CADASTRADOS</caption>
+      <thead >
+        <tr class="bg-gray-500 text-white">
+          <th class="border border-gray-600 px-4 py-2">Id</th>
+          <th class="border border-gray-600 px-4 py-2">Nome</th>
+          <th class="border border-gray-600 px-4 py-2">Telefone</th>
+          <th class="border border-gray-600 px-4 py-2">Zona</th>
+          <th class="border border-gray-600 px-4 py-2">Seção</th>
+          <th class="border border-gray-600 px-4 py-2">Registro</th>
+          <th class="border border-gray-600 px-4 py-2">Editar</th>
+          <th class="border border-gray-600 px-4 py-2">Remover</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% pessoas.map(e => { %>     
+          <tr>
+            <td class="border border-gray-400 px-4 py-2"><%= e.id %></td>
+            <td class="border border-gray-400 px-4 py-2"><%= e.nome %></td>
+            <td class="border border-gray-400 px-4 py-2"><%= e.telefone %></td>
+            <td class="border border-gray-400 px-4 py-2"><%= e.zona %></td>
+            <td class="border border-gray-400 px-4 py-2"><%= e.secao %></td>
+            <td class="border border-gray-400 px-4 py-2 text-center"><%= converterParaPtBr(e.data_registro )?? '-'  %></td>
+            <td class="border border-gray-400 px-4 py-2 text-center">
+              
+              <a href="/editar-pessoa/<%= e.id %>" class="flex items-center space-x-2 justify-between bg-blue-500 hover:bg-blue-600  duration-100 hover:shadow-md text-white px-4 py-2 rounded-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+                  <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001"/>
+                </svg>
+                <span>Editar</span>
+              </a>
+            </td>
+            <td class="border border-gray-400 px-4 py-2 text-center">
+              <button type="button" onclick="handleRemoveRegistrador('<%= e.id %>')" class="flex items-center space-x-2 justify-between bg-red-500 hover:bg-red-600 duration-100  hover:shadow-md text-white px-4 py-2 rounded-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+                </svg>
+                <span>Remover</span>
+              </button>
+            </td>
+          </tr>    
+        <% }) %>
+      </tbody>
+    </table>
+    
+  </section>
+</body>
+</html>

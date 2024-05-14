@@ -3,11 +3,12 @@ const pessoaModel = require('../models/pessoaModel');
 module.exports = {
     createPessoa: async (req, res) => {
         try {
+            console.log('cadastrando pessoa')
             const idUsuario = req.locals.id
             if(!idUsuario) throw new Error('Sem idUsuario');
 
             const data = req.body;
-            data.registradores_id = idUsuario;
+            data.registrador_id = idUsuario;
         
             await pessoaModel.createPessoa(data);
       

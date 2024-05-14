@@ -2,7 +2,7 @@ const db = require('../../database');
 
 module.exports = {
     createPessoa: async (pessoaData) => {
-        const {nome, telefone, email, zona, secao, cpf, data_nascimento, rg, rua, bairro, cep, numero, complemento, cidade, estado, pais, registradores_id} = pessoaData;
+        const {nome, telefone, email, zona, secao, cpf, data_nascimento, rg, rua, bairro, cep, numero, complemento, cidade, estado, pais, registrador_id} = pessoaData;
         if (!nome) throw new Error("Sem nome");
         if (!telefone) throw new Error("Sem telefone");
         if (!email) throw new Error("Sem email");
@@ -16,11 +16,11 @@ module.exports = {
         if (!cidade) throw new Error("Sem nome da cidade");
         if (!estado) throw new Error("Sem nome do estado");
         if (!pais) throw new Error("Sem nome do país");
-        if (!registradores_id) throw new Error("Sem ID do registrador");
+        if (!registrador_id) throw new Error("Sem ID do registrador");
         
         const sql = `
         INSERT INTO pessoas 
-            (data_registro, nome, telefone, email, zona, secao, cpf, rg, rua, bairro, cep, data_nascimento, numero, complemento, cidade, estado, pais, registradores_id)
+            (data_registro, nome, telefone, email, zona, secao, cpf, rg, rua, bairro, cep, data_nascimento, numero, complemento, cidade, estado, pais, registrador_id)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         `;
 
@@ -28,7 +28,7 @@ module.exports = {
             const result = await new Promise((resolve, reject) => {
 
                 const data_registro = new Date();
-                db.query(sql, [data_registro, nome, telefone, email, zona, secao, cpf, rg, rua, bairro, cep, data_nascimento, numero, complemento, cidade, estado, pais, registradores_id], (error, data) => {
+                db.query(sql, [data_registro, nome, telefone, email, zona, secao, cpf, rg, rua, bairro, cep, data_nascimento, numero, complemento, cidade, estado, pais, registrador_id], (error, data) => {
                     if (error) {
                         reject(error);
                     } else {
@@ -43,7 +43,7 @@ module.exports = {
         };
     },
     getPessoaByRegistradorId: async (id) => {
-        const sql = "SELECT * FROM pessoas WHERE registradores_id = ?";
+        const sql = "SELECT * FROM pessoas WHERE registrador_id = ?";
         const values = [id];
 
         return new Promise((resolve, reject) => {
@@ -100,9 +100,9 @@ module.exports = {
     },
     updatePessoa: async (id, newData) => {
         const data_registro = new Date();
-        const {nome, telefone, email, zona, secao, cpf, rg, rua, bairro, cep, data_nascimento, numero, complemento, cidade, estado, pais, registradores_id} = newData;
-        const values = [data_registro, nome, telefone, email, zona, secao, cpf, rg, rua, bairro, cep, data_nascimento, numero, complemento, cidade, estado, pais, registradores_id, id];
-        const sql = "UPDATE pessoas SET data_registro = ?, nome = ?, telefone = ?, email = ?, zona = ?, secao = ?, cpf = ?, rg = ?, rua = ?, bairro = ?, cep = ?, data_nascimento = ?, numero = ?, complemento = ?, cidade = ?, estado = ?, pais = ?, registradores_id = ? WHERE id = ?";
+        const {nome, telefone, email, zona, secao, cpf, rg, rua, bairro, cep, data_nascimento, numero, complemento, cidade, estado, pais, registrador_id} = newData;
+        const values = [data_registro, nome, telefone, email, zona, secao, cpf, rg, rua, bairro, cep, data_nascimento, numero, complemento, cidade, estado, pais, registrador_id, id];
+        const sql = "UPDATE pessoas SET data_registro = ?, nome = ?, telefone = ?, email = ?, zona = ?, secao = ?, cpf = ?, rg = ?, rua = ?, bairro = ?, cep = ?, data_nascimento = ?, numero = ?, complemento = ?, cidade = ?, estado = ?, pais = ?, registrador_id = ? WHERE id = ?";
 
         return new Promise((resolve, reject) => {
             db.query(sql, values, (error, data) => {

@@ -1,4 +1,5 @@
 const registradorModel = require('../models/registradorModel');
+const pessoaModel = require('../models/pessoaModel');
 const fs = require('fs');
 const path = require('path');
 const csv = require('csv-parser');
@@ -61,5 +62,17 @@ module.exports = {
         }
   
         res.render('cadastroPessoa', data)
+    },
+    getPessoaByOffset: async (req, res) => {
+        const limit = req.query.limit || 10
+        const offset = req.query.offset || 0
+        const pessoas = await pessoaModel.getPessoaByOffset(offset, limit)
+        const data = {
+            pessoas: pessoas
+        }
+        res.render('listaPessoa', data)
+    },
+    updatePessoa: async (req, res) => {
+        res.render('updatePessoa')
     }
 }

@@ -18,9 +18,10 @@ async function checkAuth(req, res, next){
 
         //SALVANDO NA REQUISIÇÃO INFORMAÇÕES DO USUARIO
         req.locals = {
-            id: checkToken.id || null,
+            id: checkToken.id || checkToken?.userType == 'admin' ? 1 : null,
             userType: checkToken?.userType
         };
+        // console.log(req.locals)
         next();
         
     } catch (error) {
