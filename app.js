@@ -21,10 +21,10 @@ app.use('/', express.static(path.join(__dirname, 'src/public/js')));
 app.use('/', express.static(path.join(__dirname, 'src/public/assets')));
 
 //Rotas
-const page = require('./src/routes/pageRouter');
-const authRouter = require('./src/routes/authRouter');
-const redistradorRouter = require('./src/routes/registradorRouter');
-const pessoaRouter = require('./src/routes/pessoaRouter');
+const page = require('./src/routes/pages/pages');
+const authRouter = require('./src/routes/api/authRouter');
+const redistradorRouter = require('./src/routes/api/registradorRouter');
+const pessoaRouter = require('./src/routes/api/pessoaRouter');
 
 app.use('/', page);
 app.use('/auth', authRouter);

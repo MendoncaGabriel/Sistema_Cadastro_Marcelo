@@ -1,13 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const pageController = require('../controllers/pageController');
-
+const pageController = require('../../controllers/pageController');
 
 // Middlewares
-const checkAuth = require('../middleware/checkAuth');
-const somenteAdmin = require('../middleware/somenteAdmin')
-
-
+const checkAuth = require('../../middleware/checkAuth');
+const somenteAdmin = require('../../middleware/somenteAdmin')
 
 router.get('/login', pageController.login);
 

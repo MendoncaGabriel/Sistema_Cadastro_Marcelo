@@ -55,9 +55,9 @@ module.exports = {
             status: status,
             msg: msg,
             typeUser: req.locals.typeUser
-            
         };
-        res.render('cadastroRegistrador', data)
+
+        res.render('cadastroRegistrador', data);
     },
     cadastroPessoa: async (req, res) => {
         const zonasEleirorais = await getZonas();
@@ -66,17 +66,17 @@ module.exports = {
             typeUser: req.locals.typeUser
         }
   
-        res.render('cadastroPessoa', data)
+        res.render('cadastroPessoa', data);
     },
     getPessoaByOffset: async (req, res) => {
-        const limit = req.query.limit || 10
-        const offset = req.query.offset || 0
-        const pessoas = await pessoaModel.getPessoaByOffset(offset, limit)
+        const limit = req.query.limit || 10;
+        const offset = req.query.offset || 0;
+        const pessoas = await pessoaModel.getPessoaByOffset(offset, limit);
         const data = {
             pessoas: pessoas,
             typeUser: req.locals.typeUser
-        }
-        res.render('listaPessoa', data)
+        };
+        res.render('listaPessoa', data);
     },
     updatePessoa: async (req, res) => {
         const id = req.query.ref;
@@ -85,7 +85,7 @@ module.exports = {
         const data = {
             pessoa: pessoa[0],
             typeUser: req.locals.typeUser
-        }
-        res.render('updatePessoa', data)
+        };
+        res.render('updatePessoa', data);
     }
 }

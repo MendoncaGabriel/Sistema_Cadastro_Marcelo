@@ -1,6 +1,5 @@
 const authModel = require('../models/authModel');
 
-
 module.exports = {
     login: async (req, res) => {
         try {
@@ -14,11 +13,9 @@ module.exports = {
                 maxAge:  dias, 
                 httpOnly: true // O cookie só será acessível pelo servidor
             });
-   
-            // res.status(200).json({msg: 'Usuario logado com sucesso!', token});
+            
             res.redirect('/')
         } catch (error) {
-
             res.status(401).json({msg: error.message})
         }
     },
@@ -29,7 +26,4 @@ module.exports = {
         });
         res.redirect('/login');
     }
-
-    
-
 }

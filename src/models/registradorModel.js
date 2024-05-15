@@ -75,37 +75,7 @@ async function verificarUsuarioExiste(login, name, email){
 }
 
 module.exports = {
-    getRegistradoresByOffset: (offset, limit) => {
-        return new Promise((resolve, reject) => {
-            const sql = "SELECT id, name, login, email, date FROM registradores  LIMIT ? OFFSET ?";
-            const values = [limit, offset];
-
-            db.query(sql, values, (error, data) => {
-                if(error){
-                    reject(error);
-                }else{
-                    resolve(data);
-                };
-            });
-
-        });
-    },
-    getById: (id) => {
-        return new Promise((resolve, reject) => {
-            const sql = "SELECT email, id, login, name FROM registradores  WHERE id = ?";
-            const values = [id];
-
-            db.query(sql, values, (error, data) => {
-                if(error){
-                    reject(error);
-                }else{
-                    resolve(data);
-                };
-            });
-
-        });
-    },
-    createRegistrador: async (login, password, name, email) => {
+    create: async (login, password, name, email) => {
         try {
             //Verificar se usuario existe
             const usuarioExist = await verificarUsuarioExiste(login, name, email);
@@ -134,7 +104,21 @@ module.exports = {
             throw new Error(error)
         }
     },
-    updateRegistrador: async (login, password, name, email, id) => {
+    getById: async (id) => {
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT email, id, login, name FROM registradores  WHERE id = ?";
+            const values = [id];
+
+            db.query(sql, values, (error, data) => {
+                if(error){
+                    reject(error);
+                }else{
+                    resolve(data);
+                };
+            });
+        });
+    },
+    update: async (login, password, name, email, id) => {
         try {
   
             //criptografar senha
@@ -160,7 +144,7 @@ module.exports = {
             throw new Error(error)
         }
     },
-    removerRegistrador: async (id) => {
+    delete: async (id) => {
         try {
             const sql = 'delete from registradores where id = ?'
             const values = [id]
@@ -179,5 +163,20 @@ module.exports = {
         } catch (error) {
             throw new Error(error)
         }
+    },
+    getByOffset: (offset, limit) => {
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT id, name, login, email, date FROM registradores  LIMIT ? OFFSET ?";
+            const values = [limit, offset];
+
+            db.query(sql, values, (error, data) => {
+                if(error){
+                    reject(error);
+                }else{
+                    resolve(data);
+                };
+            });
+
+        });
     }
 }

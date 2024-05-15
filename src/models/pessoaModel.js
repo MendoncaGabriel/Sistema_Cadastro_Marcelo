@@ -1,7 +1,7 @@
 const db = require('../../database');
 
 module.exports = {
-    createPessoa: async (pessoaData) => {
+    create: async (pessoaData) => {
         const {nome, telefone, email, zona, secao, cpf, data_nascimento, rg, rua, bairro, cep, numero, complemento, cidade, estado, pais, registrador_id} = pessoaData;
         if (!nome) throw new Error("Sem nome");
         if (!telefone) throw new Error("Sem telefone");
@@ -42,21 +42,7 @@ module.exports = {
             throw error;
         };
     },
-    getPessoaByRegistradorId: async (id) => {
-        const sql = "SELECT * FROM pessoas WHERE registrador_id = ?";
-        const values = [id];
-
-        return new Promise((resolve, reject) => {
-            db.query(sql, values, (error, data) => {
-                if(error){
-                    reject(error);
-                }else{
-                    resolve(data);
-                };
-            });
-        });
-    },
-    getPessoaById: async (id) => {
+    getById: async (id) => {
         const sql = "SELECT * FROM pessoas WHERE id = ?";
         const values = [id];
 
@@ -70,21 +56,21 @@ module.exports = {
             })
         })
     },
-    deletePessoa: async (id) => {
-        const sql = "DELETE FROM pessoas WHERE id = ?";
-        const values = [id];
+    getByDate: async (data) => {
+        const sql = "SELECT * FROM pessoas WHERE DATE(data_registro) = ?";
+        const values = [data];
 
-        return new Promise((resolve, reject)=> {
+        return new Promise((resolve, reject) => {
             db.query(sql, values, (error, data) => {
                 if(error){
-                    reject(error)
+                    reject(error);
                 }else{
-                    resolve(data)
-                }
-            })
-        })
+                    resolve(data);
+                };
+            });
+        });
     },
-    getPessoaByOffset: async (offset, limit) => {
+    getByOffset: async (offset, limit) => {
         const sql = "SELECT * FROM pessoas LIMIT ? OFFSET ?";
         const values = [limit, offset];
 
@@ -98,7 +84,21 @@ module.exports = {
             })
         })
     },
-    updatePessoa: async (id, newData) => {
+    getByRegistradorId: async (id) => {
+        const sql = "SELECT * FROM pessoas WHERE registrador_id = ?";
+        const values = [id];
+
+        return new Promise((resolve, reject) => {
+            db.query(sql, values, (error, data) => {
+                if(error){
+                    reject(error);
+                }else{
+                    resolve(data);
+                };
+            });
+        });
+    },
+    update: async (id, newData) => {
         const data_registro = new Date();
         const {nome, telefone, email, zona, secao, cpf, rg, rua, bairro, cep, data_nascimento, numero, complemento, cidade, estado, pais, registrador_id} = newData;
         const values = [data_registro, nome, telefone, email, zona, secao, cpf, rg, rua, bairro, cep, data_nascimento, numero, complemento, cidade, estado, pais, registrador_id, id];
@@ -114,19 +114,18 @@ module.exports = {
             });
         });
     },
-    getPessoasByData: async (data) => {
-        const sql = "SELECT * FROM pessoas WHERE DATE(data_registro) = ?";
-        const values = [data];
+    delete: async (id) => {
+        const sql = "DELETE FROM pessoas WHERE id = ?";
+        const values = [id];
 
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject)=> {
             db.query(sql, values, (error, data) => {
                 if(error){
-                    reject(error);
+                    reject(error)
                 }else{
-                    resolve(data);
-                };
-            });
-        });
-    },
-
+                    resolve(data)
+                }
+            })
+        })
+    }
 }    

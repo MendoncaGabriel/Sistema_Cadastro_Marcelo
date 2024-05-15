@@ -1,12 +1,13 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-const secret_jwt =  process.env.SECRET_JWT;
-if(!secret_jwt) console.log("SECRET_JWT não definido em .env");
+
 
 
 async function checkAuth(req, res, next){
     try {
         const {token} = req.cookies;
+        const secret_jwt =  process.env.SECRET_JWT;
+        if(!secret_jwt) throw new Error("SECRET_JWT não definido em .env");
         if(!token) throw new Error('Sem token de acesso');
 
         //verificar se possue token
@@ -15,14 +16,14 @@ async function checkAuth(req, res, next){
         //verificar se token e valido
         const checkToken = await jwt.verify(token, secret_jwt);
         if(checkToken.valid == false) throw new Error('Acesso negado!, token invalido');
-        console.log(checkToken)
+
 
         //SALVANDO NA REQUISIÇÃO INFORMAÇÕES DO USUARIO
         req.locals = {
             id: checkToken.id || checkToken?.typeUser == 'admin' ? 1 : null,
             typeUser: checkToken?.typeUser
         };
-        // console.log(req.locals)
+
         next();
         
     } catch (error) {
