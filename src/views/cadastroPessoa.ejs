@@ -19,7 +19,7 @@
         <h2 class="text-2xl font-bold">CADASTRA AI!</h2>
     </div>
     <section class="bg-white max-w-screen-lg min-h-80 m-auto md:p-10 p-5 shadow-lg flex items-center justify-center">
-        <form action="/pessoa/create", method="post" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-5 w-full">
+        <form id="formCreatePessoa" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-5 w-full">
             <!-- PRINCIPAL -->
             <h2 class="sm:col-span-2 md:col-span-3 lg:col-span-4 border-b-2 font-semibold">PRINCIPAL</h2>
             <div class="flex flex-col">
@@ -116,55 +116,4 @@
 
 
 
-<script>
-
-function mascara(src, mascara) {
-    const campo = src.value.length;
-    const texto = mascara.substring(campo);
-    if (texto.charAt(0) !== '#') {
-        src.value += texto.charAt(0);
-        // Verifica se o próximo caractere na máscara é um espaço
-        if (texto.charAt(1) === ' ') {
-            src.value += ' ';
-        }
-    }
-}
-
-
-
-const inputCep = document.getElementById('inputCep');
-inputCep.addEventListener('keyup', (event) =>{
-    handleInputCep(event.target.value)
-})
-
-async function buscarEndereco(cep) {
-    if(!cep) return null;
-    return new Promise((resolve, reject) => {
-        const apiUrl = `https://viacep.com.br/ws/${cep}/json/`;
-        fetch(apiUrl)
-        .then(res => res.json())
-        .then(res => {
-            resolve(res)
-        })
-        .catch(error => {
-            reject(error)
-        });
-    })
-}
-
-
-async function handleInputCep(cep){
-    if(cep.length == 9){
-        const endereco = await buscarEndereco(cep);
-        console.log(endereco)
-        document.querySelector('[name=bairro]').value = endereco.bairro || '';
-        document.querySelector('[name=complemento]').value = endereco.complemento || '';
-        document.querySelector('[name=cidade]').value = endereco.localidade || '';
-        document.querySelector('[name=rua]').value = endereco.logradouro || '';
-        document.querySelector('[name=estado]').value = endereco.uf || '';
-
-    }
-}
-
-
-</script>
+<script src="cadastroPessoa.js"></script>

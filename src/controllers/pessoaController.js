@@ -4,12 +4,8 @@ module.exports = {
     create: async (req, res) => {
         try {
             const idUsuario = req.locals.id;
-           
             const data = req.body;
-            data.registrador_id = idUsuario;
-        
-            await pessoaModel.create(data);
-      
+            await pessoaModel.create(data, idUsuario);
             res.status(200).json({msg: "Pessoa cadastrada com sucesso!"});
         } catch (error) {
             res.status(500).json({msg: error.message});
@@ -59,7 +55,8 @@ module.exports = {
         try {
             const id = parseInt(req.params.id);
             const data = req.body;
-            await pessoaModel.update(id, data);
+            const result = await pessoaModel.update(id, data);
+            console.log(result)
             res.status(200).json({msg: "Pessoa atualizada com sucesso!"});
         } catch (error) {
             res.status(500).json({msg: error.message});

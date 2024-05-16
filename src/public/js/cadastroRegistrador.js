@@ -7,6 +7,7 @@ const updatename = document.getElementById('updatename');
 const updateEmail = document.getElementById('updateEmail');
 const updateLogin = document.getElementById('updateLogin');
 const updatePassword = document.getElementById('updatePassword');
+var idUpdateSelected = ''
 
 function cleanInputsUpdateRegistradores(){
     updatename.value = '';
@@ -31,14 +32,14 @@ function changeInputsUpdateRegistrador(data){
     updateEmail.value = data.email ?? '';
     updateLogin.value = data.login ?? '';
 }
+
 function handleUpdateRegistrador(id){
-    updateRegistrador.action = '/registrador/update/' + id;
+    idUpdateSelected = id;
     fetch('/registrador/getById/' + id, {
         method: 'GET',
     })
     .then(res => res.json())
     .then(res => {
-        console.log(res.result)
         changeInputsUpdateRegistrador(res.result[0])
     })
     
@@ -48,7 +49,7 @@ function handleRemoveRegistrador(id){
     const res = prompt('Deseja realmente remover este usuário registrador ? : sim/nao');
     if(res  != "sim") return;
     
-    fetch('/registrador/remove/'+id, {
+    fetch('/registrador/delete/'+id, {
         method: "DELETE"
     })
     .then(res => res.json())
@@ -72,6 +73,32 @@ createRegistrador.addEventListener('submit', function(event) {
     FetchCreateRegistrador(data)
 });
 
+//CRIAR REGISTRADOR
+updateRegistrador.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target)
+    const data = Object.fromEntries(formData);
+    FetchUpdateRegistrador(data, idUpdateSelected)
+});
+
+function FetchUpdateRegistrador(data, id){
+    console.log(data)
+    fetch('/registrador/update/'+ id, {
+        method: 'PATCH',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(res => {
+        window.location.reload()
+        console.log(res)
+    })
+    .catch(error => {
+        alert(error)
+        window.location.reload()
+        console.log(error)
+    })
+}
 function FetchCreateRegistrador(data){
     fetch('/registrador/create', {
         method: 'POST',
@@ -80,9 +107,14 @@ function FetchCreateRegistrador(data){
     })
     .then(res => res.json())
     .then(res => {
+        window.modal.changeModal('Registrador cadastrado com sucesso!', res.msg, ()=> window.location.reload(), "ok") 
+        window.modal.abrir()
         console.log(res)
     })
     .catch(error => {
+        window.modal.changeModal('Erro ao salvar registrador', error.msg, ()=> window.location.reload(), "ok")
+        window.modal.abrir()
         console.log(error)
     })
 }
+

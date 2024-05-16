@@ -60,6 +60,7 @@ function checkUpdate(req, res, next){
 
         next()
     } catch (error) {
+        console.log(error)
         res.status(400).json({msg: error.message})
     }
 }
@@ -77,7 +78,7 @@ function checkDelete(req, res, next){
 router.post('/create',checkRouterCreate, registradorController.create); 
 router.get('/getById/:id', checkGetById,registradorController.getById); 
 router.get('/getByOffset/:id',checkGetByOffset, registradorController.getByOffset); 
-router.post("/update/:id",checkUpdate, registradorController.update);
+router.patch("/update/:id", checkUpdate, registradorController.update);
 router.delete("/delete/:id",checkDelete, registradorController.delete);
 
 module.exports = router;

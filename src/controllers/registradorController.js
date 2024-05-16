@@ -6,9 +6,12 @@ module.exports = {
     create: async (req, res) => { 
         try {
             const {login, password, name, email} = req.body;
-            const id_admin = req.locals.id;
 
-            const {insertId} = await registradorModel.create(login, password, name, email, id_admin);
+            const registradorExists = await registradorModel.existing(login, name, email)
+            console.log(registradorExists)
+            if(registradorExists) throw new Error('Registrador ja cadastrado verifique login, nome e email')
+
+            const {insertId} = await registradorModel.create(login, password, name, email, req.locals.id);
             if(typeof insertId != 'number' || !insertId) throw new Error('Falha ao registar novo usuario registrador!');
         
             res.status(200).json({msg: 'Registrador salvo com sucesso!'});
@@ -39,21 +42,19 @@ module.exports = {
     },
     update: async (req, res) => { 
         try {
+            console.log('controller')
             const id = req.params.id
             const {login, password, name, email} = req.body;
-
             await registradorModel.update(login, password, name, email, id);
-         
-            res.status(200)({msg: 'Registrador atualizado com sucesso!'})
+            res.status(200).json({msg: 'Registrador atualizado com sucesso!'})
         } catch (error) {
-          
-            res.status(500)({msg: error.message});
+            res.status(500).json({msg: error.message});
         }
     },
     delete: async (req, res) => {
         try {
             const id = req.params.id
-            await registradorModel.removerRegistrador(id);
+            await registradorModel.delete(id);
             res.status(200).json({msg: "usuario registrador foi removido"});
             
         } catch (error) {

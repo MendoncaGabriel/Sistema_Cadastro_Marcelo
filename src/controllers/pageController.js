@@ -68,10 +68,18 @@ module.exports = {
   
         res.render('cadastroPessoa', data);
     },
-    pessoasCadastradas: async (req, res) => {
+    getByOffset: async (req, res) => {
         const limit = req.query.limit || 10;
         const offset = req.query.offset || 0;
-        const pessoas = await pessoaModel.getByOffset(offset, limit);
+
+        let pessoas = []
+        if(req.locals.typeUser == 'admin'){
+            pessoas = await pessoaModel.getByOffsetAll(offset, limit);
+        }else{
+            const registradorId = req.locals.id
+            pessoas = await pessoaModel.getByOffsetAndIdRegistrador(offset, limit, registradorId);
+        }
+
         const data = {
             pessoas: pessoas,
             typeUser: req.locals.typeUser

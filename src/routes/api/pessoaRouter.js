@@ -6,8 +6,21 @@ const checkAuth = require('../../middleware/checkAuth');
 // MIDDLEWARES
 function checkCreate(req, res, next){
     try {
-        const idUsuario = req.locals.id;
-        if(!idUsuario) throw new Error('Id não foi passado em req.locals.id');
+        const {nome, telefone, email, zona, secao, cpf, data_nascimento, rg, rua, bairro, cep, numero, complemento, cidade, estado, pais} =  req.body;
+        if (!nome) throw new Error("Sem nome");
+        if (!telefone) throw new Error("Sem telefone");
+        if (!email) throw new Error("Sem email");
+        if (!cpf) throw new Error("Sem CPF");
+        if (!rg) throw new Error("Sem RG");
+        if (!data_nascimento) throw new Error("Sem data_nascimento");
+        if (!rua) throw new Error("Sem nome da rua");
+        if (!bairro) throw new Error("Sem nome do bairro");
+        if (!cep) throw new Error("Sem CEP");
+        if (!numero) throw new Error("Sem número");
+        if (!cidade) throw new Error("Sem nome da cidade");
+        if (!estado) throw new Error("Sem nome do estado");
+        if (!pais) throw new Error("Sem nome do país");
+        if(!req.locals.id) throw new Error('Id não foi passado em req.locals.id');
         next();
     } catch (error) {
         res.status(400).json({msg: error.message})

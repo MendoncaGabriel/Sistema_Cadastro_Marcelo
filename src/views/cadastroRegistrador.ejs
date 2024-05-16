@@ -14,7 +14,7 @@
   <%- include('components/navbar') %>
   <%- include('components/modal') %>
 
-  <section class="bg-white max-w-screen-lg min-h-80 m-auto p-10 shadow-lg  ">
+  <section class="bg-white max-w-screen-xl min-h-80 m-auto p-10 shadow-lg  ">
   
     <!-- CRIAR REGISTRADOR -->
     <form id="createRegistrador"class="block m-auto text-gray-600  mb-10" >
@@ -46,7 +46,7 @@
     </form>
 
     <!-- ATUALIZAR REGISTRADOR -->
-    <form  action="" method="post" class="hidden m-auto text-gray-600  mb-10" id="updateRegistrador">
+    <form id="updateRegistrador"  class="hidden m-auto text-gray-600  mb-10" >
       
       <div class="flex items-center justify-end space-x-2">
         <button type="submit" class="mr-5 flex items-center space-x-2 justify-between bg-blue-500 hover:bg-blue-600  duration-100 hover:shadow-md text-white px-4 py-2 rounded-sm">
@@ -86,18 +86,18 @@
     <hr class="mb-10">
 
     <!-- LISTA DE REGISTRADORES -->
-    <table class="m-auto mb-10">
+    <table class="m-auto mb-10 text-sm">
       <caption class="text-lg font-semibold">REGISTRADORES CADASTRADOS</caption>
 
       <thead >
         <tr class="bg-gray-500 text-white">
-          <th class="border border-gray-600 px-4 py-2">Id</th>
-          <th class="border border-gray-600 px-4 py-2">Nome</th>
-          <th class="border border-gray-600 px-4 py-2">Login</th>
-          <th class="border border-gray-600 px-4 py-2">Email</th>
-          <th class="border border-gray-600 px-4 py-2">Registro</th>
-          <th class="border border-gray-600 px-4 py-2">Editar</th>
-          <th class="border border-gray-600 px-4 py-2">Remover</th>
+          <th class="border border-gray-600 px-2 py-1">Id</th>
+          <th class="border border-gray-600 px-2 py-1">Nome</th>
+          <th class="border border-gray-600 px-2 py-1">Login</th>
+          <th class="border border-gray-600 px-2 py-1">Email</th>
+          <th class="border border-gray-600 px-2 py-1">Registro</th>
+          <th class="border border-gray-600 px-2 py-1">Editar</th>
+          <th class="border border-gray-600 px-2 py-1">Remover</th>
         </tr>
       </thead>
       <tbody>
@@ -115,12 +115,12 @@
         <% registradores.map(e => { %>     
 
           <tr>
-            <td class="border border-gray-400 px-4 py-2"><%= e.id %></td>
-            <td class="border border-gray-400 px-4 py-2"><%= e.name %></td>
-            <td class="border border-gray-400 px-4 py-2"><%= e.login %></td>
-            <td class="border border-gray-400 px-4 py-2"><%= e.email %></td>
-            <td class="border border-gray-400 px-4 py-2 text-center"><%= converterParaPtBr(e.date )?? '-'  %></td>
-            <td class="border border-gray-400 px-4 py-2 text-center">
+            <td class="border border-gray-400 px-2 py-1"><%= e.id %></td>
+            <td class="border border-gray-400 px-2 py-1"><%= e.name %></td>
+            <td class="border border-gray-400 px-2 py-1"><%= e.login %></td>
+            <td class="border border-gray-400 px-2 py-1"><%= e.email %></td>
+            <td class="border border-gray-400 px-2 py-1 text-center"><%= converterParaPtBr(e.date )?? '-'  %></td>
+            <td class="border border-gray-400 px-2 py-1 text-center">
               <button onclick="handleUpdateRegistrador('<%= e.id %>')" class="flex items-center space-x-2 justify-between bg-blue-500 hover:bg-blue-600  duration-100 hover:shadow-md text-white px-4 py-2 rounded-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
                   <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001"/>
