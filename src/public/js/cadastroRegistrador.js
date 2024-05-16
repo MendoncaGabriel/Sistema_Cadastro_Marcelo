@@ -1,6 +1,6 @@
 
-const createRegistrador = document.getElementById('createRegistrador');
-const updateRegistrador = document.getElementById('updateRegistrador');
+const createRegistrador = document.getElementById('createRegistrador'); //form
+const updateRegistrador = document.getElementById('updateRegistrador'); //form
 
 //UPDATE
 const updatename = document.getElementById('updatename');
@@ -26,13 +26,11 @@ function switchFormRegistrador(action){
     }
 
 };
-
 function changeInputsUpdateRegistrador(data){
     updatename.value = data.name ?? '';
     updateEmail.value = data.email ?? '';
     updateLogin.value = data.login ?? '';
 }
-
 function handleUpdateRegistrador(id){
     updateRegistrador.action = '/registrador/update/' + id;
     fetch('/registrador/getById/' + id, {
@@ -46,7 +44,6 @@ function handleUpdateRegistrador(id){
     
     switchFormRegistrador('update')
 }
-
 function handleRemoveRegistrador(id){
     const res = prompt('Deseja realmente remover este usuário registrador ? : sim/nao');
     if(res  != "sim") return;
@@ -64,4 +61,28 @@ function handleRemoveRegistrador(id){
         alert('Erro ao remover registrador')
     })
 
+}
+
+
+//CRIAR REGISTRADOR
+createRegistrador.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target)
+    const data = Object.fromEntries(formData);
+    FetchCreateRegistrador(data)
+});
+
+function FetchCreateRegistrador(data){
+    fetch('/registrador/create', {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(res => {
+        console.log(res)
+    })
+    .catch(error => {
+        console.log(error)
+    })
 }

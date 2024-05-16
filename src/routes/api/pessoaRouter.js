@@ -3,7 +3,7 @@ const router = express.Router();
 const pessoaController = require('../../controllers/pessoaController');
 const checkAuth = require('../../middleware/checkAuth');
 
-//CREATE
+// MIDDLEWARES
 function checkCreate(req, res, next){
     try {
         const idUsuario = req.locals.id;
@@ -13,10 +13,16 @@ function checkCreate(req, res, next){
         res.status(400).json({msg: error.message})
     }
 }
-router.post('/create', checkAuth, checkCreate, pessoaController.create);
-
-
-//READ
+function checkDelete(req, res, next){
+    try {
+        const id = parseInt(req.params.id);
+        if(!id) throw new Error('Parametro id não foi passado');
+ 
+        next();
+    } catch (error) {
+        res.status(400).json({msg: error.message})
+    }
+}
 function checkGetById(req, res, next){
     try {
         const id = parseInt(req.params.id);
@@ -26,9 +32,6 @@ function checkGetById(req, res, next){
         res.status(400).json({msg: error.message})
     }
 }
-router.get('/getById/:id', checkAuth, checkGetById, pessoaController.getById);
-
-
 function checkGetByDate(req, res, next){
     try {
         const data = req.params.data;
@@ -44,9 +47,6 @@ function checkGetByDate(req, res, next){
         res.status(400).json({msg: error.message})
     }
 }
-router.get('/getByDate/:data', checkAuth, checkGetByDate, pessoaController.getByDate);
-
-
 function checkGetByOffset(req, res, next){
     try {
         const offset = req.query.offset
@@ -57,9 +57,6 @@ function checkGetByOffset(req, res, next){
         res.status(400).json({msg: error.message})
     }
 }
-router.get('/getByOffset', checkAuth, checkGetByOffset, pessoaController.getByOffset);
-
-
 function checkGetByRegistradorId(req, res, next){
     try {
         const id = parseInt(req.params.id);
@@ -70,10 +67,6 @@ function checkGetByRegistradorId(req, res, next){
         res.status(400).json({msg: error.message})
     }
 }
-router.get('/getByRegistradorId/:id', checkAuth, checkGetByRegistradorId, pessoaController.getByRegistradorId);
-
-
-//UPDATE
 function checkUpdate(req, res, next){
     try {
         const id = parseInt(req.params.id);
@@ -106,20 +99,14 @@ function checkUpdate(req, res, next){
         res.status(400).json({msg: error.message})
     }
 }
+
+// ROTAS
+router.post('/create', checkAuth, checkCreate, pessoaController.create);
+router.get('/getById/:id', checkAuth, checkGetById, pessoaController.getById);
+router.get('/getByDate/:data', checkAuth, checkGetByDate, pessoaController.getByDate);
+router.get('/getByOffset', checkAuth, checkGetByOffset, pessoaController.getByOffset);
+router.get('/getByRegistradorId/:id', checkAuth, checkGetByRegistradorId, pessoaController.getByRegistradorId);
 router.patch('/update/:id', checkAuth, checkUpdate, pessoaController.update);
-
-
-//DELETE
-function checkDelete(req, res, next){
-    try {
-        const id = parseInt(req.params.id);
-        if(!id) throw new Error('Parametro id não foi passado');
- 
-        next();
-    } catch (error) {
-        res.status(400).json({msg: error.message})
-    }
-}
 router.delete('/delete/:id', checkAuth, checkDelete, pessoaController.delete);
 
 module.exports = router;

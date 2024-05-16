@@ -1,0 +1,102 @@
+<section id="modal" class="border absolute bg-white rounded-lg drop-shadow-md w-96 overflow-hidden left-1/2 -top-[100%] hidden duration-500 transform -translate-x-1/2 ">
+    <div class="p-4 flex items-center justify-between">
+        <p id="titleModal" class="text-xl font-semibold"></p>
+        <button onclick="fecharModal()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x text-red-600" viewBox="0 0 16 16">
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+            </svg>
+        </button>
+    </div>
+    <p id="descModal" class="border py-4 px-8">
+
+    </p>
+    <div class="p-4 font-bold space-x-2 flex items-center">
+        <button onclick="fecharModal()" id="btnModal1" class="px-4 py-2 rounded-sm bg-c5 hover:scale-110 duration-200 text-white hidden"></button>
+        <button onclick="fecharModal()" id="btnModal2" class="px-4 py-2 rounded-sm bg-gray-300 text-c5 hover:scale-110 duration-200 hidden"></button>
+    </div>
+</section>
+<script>
+    function fecharModal(){
+        const modal = document.getElementById('modal')
+        modal.classList.replace('top-2', '-top-[100%]')
+        setTimeout(() => {
+            modal.classList.replace('hidden', 'block')
+        }, 500);
+    }
+    function abrirModal(){
+        const modal = document.getElementById('modal')
+        modal.classList.replace('hidden', 'block')
+        setTimeout(() => {
+            modal.classList.replace('-top-[100%]', 'top-2')
+        }, 50);
+    }
+    
+    function changeModal(data) {
+        const btnModal1 = document.getElementById('btnModal1');
+        const btnModal2 = document.getElementById('btnModal2');
+        const descModal = document.getElementById('descModal');
+        const titleModal = document.getElementById('titleModal');
+
+        // Definindo o evento onclick dos botões
+        btnModal1.onclick = function() {
+            fecharModal();
+            data.btnFunc1();
+        };
+        btnModal2.onclick = function() {
+            fecharModal();
+            data.btnFunc2();
+        };
+
+        // Atualizando o texto e a visibilidade dos botões
+        if (data.btnTitle1) {
+            btnModal1.innerText = data.btnTitle1;
+            btnModal1.classList.replace('hidden', 'block');
+        } else {
+            btnModal1.innerText = '';
+            btnModal1.classList.replace('block', 'hidden');
+        }
+        if (data.btnTitle2) {
+            btnModal2.innerText = data.btnTitle2;
+            btnModal2.classList.replace('hidden', 'block');
+        } else {
+            btnModal2.innerText = '';
+            btnModal2.classList.replace('block', 'hidden');
+        }
+
+        // Atualizando o texto e a visibilidade da descrição e do título
+        if (data.descModal) {
+            descModal.innerText = data.descModal;
+            descModal.classList.replace('hidden', 'block');
+        } else {
+            descModal.innerText = '';
+            descModal.classList.replace('block', 'hidden');
+        }
+        if (data.titleModal) {
+            titleModal.innerText = data.titleModal;
+            titleModal.classList.replace('hidden', 'block');
+        } else {
+            titleModal.innerText = '';
+            titleModal.classList.replace('block', 'hidden');
+        }
+    }
+
+  
+   
+
+    window.modal = {
+
+        abrir: () => abrirModal(),
+        fechar: () => fecharModal(),
+        changeModal: (titleModal, descModal, btnFunc1, btnFunc2, btnTitle1, btnTitle2) => changeModal({
+            titleModal: titleModal,
+            descModal: descModal,
+            btnFunc1: btnFunc1,
+            btnFunc2: btnFunc2,
+            btnTitle1: btnTitle1,
+            btnTitle2: btnTitle2,
+        })
+    }
+    
+    console.log(window.modal)
+ 
+</script>

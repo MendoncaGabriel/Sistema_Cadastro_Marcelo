@@ -4,11 +4,10 @@ module.exports = {
     login: async (req, res) => {
         try {
             const {login, password} = req.body;
-            if(!login || !password) return res.status(400).json({msg: 'Login e password são obrigatorios!'});
-            const {token} = await authModel.login(login, password);
+            const token = await authModel.login(login, password);
 
             //APLICANDO TOKEN EM COOKIES
-            const dias = 30 * 24 * 60 * 60 * 1000;
+            const dias = 1000 * 60 * 60 * 24 * 30;
             res.cookie('token', token, {
                 maxAge:  dias, 
                 httpOnly: true // O cookie só será acessível pelo servidor

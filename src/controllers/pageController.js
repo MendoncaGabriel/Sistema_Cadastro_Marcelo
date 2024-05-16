@@ -46,7 +46,7 @@ module.exports = {
     cadastroRegistrador: async (req, res) => {
         const offset = req.query.offset || 0;
         const limit = req.query.limit || 10;
-        const registradoresByOffset = await  registradorModel.getRegistradoresByOffset(offset, limit);
+        const registradoresByOffset = await  registradorModel.getByOffset(offset, limit);
         const status = req.query.status || null;
         const msg = req.query.msg || null;
     
@@ -68,10 +68,10 @@ module.exports = {
   
         res.render('cadastroPessoa', data);
     },
-    getPessoaByOffset: async (req, res) => {
+    pessoasCadastradas: async (req, res) => {
         const limit = req.query.limit || 10;
         const offset = req.query.offset || 0;
-        const pessoas = await pessoaModel.getPessoaByOffset(offset, limit);
+        const pessoas = await pessoaModel.getByOffset(offset, limit);
         const data = {
             pessoas: pessoas,
             typeUser: req.locals.typeUser
@@ -80,7 +80,7 @@ module.exports = {
     },
     updatePessoa: async (req, res) => {
         const id = req.query.ref;
-        const pessoa = await  pessoaModel.getPessoaById(id);
+        const pessoa = await  pessoaModel.getById(id);
 
         const data = {
             pessoa: pessoa[0],

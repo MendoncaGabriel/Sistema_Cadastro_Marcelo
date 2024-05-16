@@ -4,13 +4,12 @@ const registradorController = require('../../controllers/registradorController')
 
 // Middlewares
 const checkAuth = require('../../middleware/checkAuth');
-const somenteAdmin = require('../../middleware/somenteAdmin')
+const somenteAdmin = require('../../middleware/somenteAdmin');
 
-router.use(checkAuth) 
-router.use(somenteAdmin)
+router.use(checkAuth);
+router.use(somenteAdmin);
 
-
-//CREATE
+//MIDDLEWARES
 function checkRouterCreate(req, res, next){
     try { 
         // validar campos
@@ -29,10 +28,6 @@ function checkRouterCreate(req, res, next){
         res.status(400).json({msg: error.message})
     }
 }
-router.post('/create',checkRouterCreate, registradorController.create); 
-
-
-//READ
 function checkGetById(req, res, next){
     try {
         const id = req.params.id;
@@ -42,9 +37,6 @@ function checkGetById(req, res, next){
         res.status(400).json({msg: error.message});
     }
 }
-router.get('/getById/:id', checkGetById,registradorController.getById); 
-
-
 function checkGetByOffset (req, res, next){
     try {
         if(!req.query.offset) throw new Error('Offset não informado');
@@ -53,10 +45,6 @@ function checkGetByOffset (req, res, next){
         res.status(400).json({msg: error.message}); 
     };
 }
-router.get('/getByOffset/:id',checkGetByOffset, registradorController.getByOffset); 
-
-
-//UPDATE
 function checkUpdate(req, res, next){
     try {
         const id = req.params.id
@@ -75,10 +63,6 @@ function checkUpdate(req, res, next){
         res.status(400).json({msg: error.message})
     }
 }
-router.post("/update/:id",checkUpdate, registradorController.update);
-
-
-//DELETE
 function checkDelete(req, res, next){
     try {
         const id = req.params.id;
@@ -88,8 +72,12 @@ function checkDelete(req, res, next){
         res.status(400).json({msg: error.message})
     }
 }
+
+//RORAS
+router.post('/create',checkRouterCreate, registradorController.create); 
+router.get('/getById/:id', checkGetById,registradorController.getById); 
+router.get('/getByOffset/:id',checkGetByOffset, registradorController.getByOffset); 
+router.post("/update/:id",checkUpdate, registradorController.update);
 router.delete("/delete/:id",checkDelete, registradorController.delete);
-
-
 
 module.exports = router;

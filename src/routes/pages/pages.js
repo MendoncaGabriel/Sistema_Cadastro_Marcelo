@@ -12,7 +12,7 @@ router.get('/login', pageController.login);
 router.get('/', checkAuth, pageController.home);
 router.get('/cadastro-registrador', checkAuth, somenteAdmin,  pageController.cadastroRegistrador);
 router.get('/cadastro-pessoa', checkAuth, pageController.cadastroPessoa);
-router.get('/pessoas-cadastradas', checkAuth, pageController.getPessoaByOffset);
+router.get('/pessoas-cadastradas', checkAuth, pageController.pessoasCadastradas);
 router.get('/editar-pessoa', checkAuth, pageController.updatePessoa);
 
 module.exports = router;
