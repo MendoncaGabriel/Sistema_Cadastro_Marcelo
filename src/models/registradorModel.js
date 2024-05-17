@@ -10,7 +10,7 @@ module.exports = {
             const passwordhash = await bycript.hash(password, salt)
           
             //gravar usuario no banco
-            const sql = "insert into  registradores (login, password, name, email, date) values (?, ?, ?, ?, ?)"
+            const sql = "insert into  usuarios (login, password, name, email, date) values (?, ?, ?, ?, ?)"
             const date = new Date();
             const values = [login, passwordhash, name, email, date];
 
@@ -30,7 +30,7 @@ module.exports = {
     },
     getById: async (id) => {
         return new Promise((resolve, reject) => {
-            const sql = "SELECT email, id, login, name FROM registradores  WHERE id = ?";
+            const sql = "SELECT email, id, login, name FROM usuarios  WHERE id = ?";
             const values = [id];
 
             db.query(sql, values, (error, data) => {
@@ -49,7 +49,7 @@ module.exports = {
             const salt = await bycript.genSalt(10);
             const passwordhash = await bycript.hash(password, salt)
             const date = new Date();
-            const sql = "UPDATE registradores SET login = ?, password = ?, name = ?, email = ?, date = ? WHERE id = ?;";
+            const sql = "UPDATE usuarios SET login = ?, password = ?, name = ?, email = ?, date = ? WHERE id = ?;";
             const values = [login, passwordhash, name, email, date, id];
 
             db.query(sql, values, (error, data) => {
@@ -63,7 +63,7 @@ module.exports = {
     },
     delete: async (id) => {
         try {
-            const sql = 'delete from registradores where id = ?'
+            const sql = 'delete from usuarios where id = ?'
             const values = [id]
             const result = await new Promise((resolve, reject) => {
                 db.query(sql, values, (error, data) => {
@@ -74,7 +74,7 @@ module.exports = {
                     }
                 })
             })
-            if(result.affectedRows == 0) throw new Error('Virifique id de registradores')
+            if(result.affectedRows == 0) throw new Error('Virifique id de usuarios')
            
             return result
         } catch (error) {
@@ -83,7 +83,7 @@ module.exports = {
     },
     getByOffset: (offset, limit) => {
         return new Promise((resolve, reject) => {
-            const sql = "SELECT id, name, login, email, date FROM registradores  LIMIT ? OFFSET ?";
+            const sql = "SELECT id, name, login, email, date FROM usuarios  LIMIT ? OFFSET ?";
             const values = [limit, offset];
 
             db.query(sql, values, (error, data) => {
@@ -98,7 +98,7 @@ module.exports = {
     },
     existing: async (login, nome, email) => {
         return new Promise((resolve, reject) => {
-            const sql = 'SELECT * FROM registradores WHERE login = ? OR name = ? OR email = ?'
+            const sql = 'SELECT * FROM usuarios WHERE login = ? OR name = ? OR email = ?'
             const values = [login, nome, email];
             db.query(sql, values, (error, result) => {
                 if (error) {

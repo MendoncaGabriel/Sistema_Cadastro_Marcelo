@@ -39,7 +39,7 @@ module.exports = {
     },
     home: (req, res) => {
         const data = {
-            typeUser: req.locals.typeUser
+            admin: req.locals.admin
         }
         res.render('home', data)
     },

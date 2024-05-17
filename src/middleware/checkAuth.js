@@ -3,7 +3,7 @@ require('dotenv').config();
 
 
 
-async function checkAuth(req, res, next){
+function checkAuth(req, res, next){
     try {
         const {token} = req.cookies;
         const secret_jwt =  process.env.SECRET_JWT;
@@ -14,16 +14,11 @@ async function checkAuth(req, res, next){
         if(!token || token == 'undefined') throw new Error('Acesso negado!, sem token');
 
         //verificar se token e valido
-        const checkToken = await jwt.verify(token, secret_jwt);
-        if(checkToken.valid == false) throw new Error('Acesso negado!, token invalido');
-
+        const payload = jwt.verify(token, secret_jwt);
+        if(payload.valid == false) throw new Error('Acesso negado!, token invalido');
 
         //SALVANDO NA REQUISIÇÃO INFORMAÇÕES DO USUARIO
-        req.locals = {
-            id: checkToken.id || checkToken?.typeUser == 'admin' ? 1 : null,
-            typeUser: checkToken?.typeUser
-        };
-
+        req.locals = payload 
         next();
         
     } catch (error) {
