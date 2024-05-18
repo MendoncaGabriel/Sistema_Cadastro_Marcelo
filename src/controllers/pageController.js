@@ -38,8 +38,10 @@ module.exports = {
         res.render('login')
     },
     home: (req, res) => {
+        console.log(req.local)
         const data = {
-            admin: req.locals.admin
+            admin: req.locals.admin,
+            public_id: req.locals.public_id
         }
         res.render('home', data)
     },
@@ -61,9 +63,11 @@ module.exports = {
     },
     cadastroPessoa: async (req, res) => {
         const zonasEleirorais = await getZonas();
+        const public_id = req.query.public_id
         const data = {
             zonasEleirorais: zonasEleirorais,
-            typeUser: req.locals.typeUser
+            typeUser: req.locals.typeUser,
+            public_id: public_id
         }
   
         res.render('cadastroPessoa', data);

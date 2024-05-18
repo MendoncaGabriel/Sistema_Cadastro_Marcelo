@@ -1,8 +1,6 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-
-
 function checkAuth(req, res, next){
     try {
         const {token} = req.cookies;
@@ -15,6 +13,7 @@ function checkAuth(req, res, next){
 
         //verificar se token e valido
         const payload = jwt.verify(token, secret_jwt);
+       
         if(payload.valid == false) throw new Error('Acesso negado!, token invalido');
 
         //SALVANDO NA REQUISIÇÃO INFORMAÇÕES DO USUARIO

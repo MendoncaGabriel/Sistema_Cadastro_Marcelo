@@ -75,7 +75,7 @@ function checkDelete(req, res, next){
 }
 
 //RORAS
-router.post('/create',checkRouterCreate, registradorController.create); 
+router.post('/create', checkRouterCreate, registradorController.create); 
 router.get('/getById/:id', checkGetById,registradorController.getById); 
 router.get('/getByOffset/:id',checkGetByOffset, registradorController.getByOffset); 
 router.patch("/update/:id", checkUpdate, registradorController.update);

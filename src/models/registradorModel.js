@@ -1,5 +1,6 @@
 const db = require('../../database');
 const bycript = require('bcryptjs');
+const { v4: uuidv4 } = require('uuid');
 
 
 module.exports = {
@@ -10,9 +11,10 @@ module.exports = {
             const passwordhash = await bycript.hash(password, salt)
           
             //gravar usuario no banco
-            const sql = "insert into  usuarios (login, password, name, email, date) values (?, ?, ?, ?, ?)"
+            const sql = "insert into  usuarios (public_id, login, password, name, email, date) values (?, ?, ?, ?, ?, ?)"
             const date = new Date();
-            const values = [login, passwordhash, name, email, date];
+            const public_id = uuidv4()
+            const values = [public_id, login, passwordhash, name, email, date];
 
             const result = await new Promise((resolve, reject) => {
                 db.query(sql, values, (error, data) => {

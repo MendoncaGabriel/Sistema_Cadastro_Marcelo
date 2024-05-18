@@ -3,7 +3,9 @@ const pessoaModel = require('../models/pessoaModel');
 module.exports = {
     create: async (req, res) => {
         try {
-            const idUsuario = req.locals.id;
+            const public_id = req.locals.public_id
+            console.log('===> public_id: ', public_id)
+            return
             const data = req.body;
             await pessoaModel.create(data, idUsuario);
             res.status(200).json({msg: "Pessoa cadastrada com sucesso!"});

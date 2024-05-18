@@ -16,9 +16,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/', express.static(path.join(__dirname, 'src/public/css')));
-app.use('/', express.static(path.join(__dirname, 'src/public/js')));
-app.use('/', express.static(path.join(__dirname, 'src/public/assets')));
+app.use('/', express.static(path.resolve('src','public','css')));
+app.use('/', express.static(path.resolve('src','public','js')));
+app.use('/', express.static(path.resolve('src','public','assets')));
 
 //Rotas
 const page = require('./src/routes/pages/pages');

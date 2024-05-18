@@ -26,7 +26,7 @@ module.exports = {
                 const passwordHash = usuario[0].password;
                 const checkPassword = await bycript.compare(password, passwordHash);
                 if(checkPassword == false && usuario[0].password !== password) throw new Error('Senha invalida!');
-    
+              
                 //CRIANDO TOKEN DE ACESSO
                 const payload = {
                     login, 
@@ -34,8 +34,10 @@ module.exports = {
                     admin: usuario[0].admin,
                     cadastrar_pessoas: usuario[0].cadastrar_pessoas,
                     cadastrar_usuarios: usuario[0].cadastrar_usuarios,
+                    public_id: usuario[0].public_id,
                     date: new Date()
                 };
+                console.log(payload)
                 const validade = '30d'
                 const secret = process.env.SECRET_JWT
                 const token = jwt.sign(payload, secret, { expiresIn: validade });
