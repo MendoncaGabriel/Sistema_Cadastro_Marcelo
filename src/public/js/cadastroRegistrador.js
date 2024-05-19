@@ -32,7 +32,6 @@ function changeInputsUpdateRegistrador(data){
     updateEmail.value = data.email ?? '';
     updateLogin.value = data.login ?? '';
 }
-
 function handleUpdateRegistrador(id){
     idUpdateSelected = id;
     fetch('/registrador/getById/' + id, {
@@ -90,8 +89,13 @@ function FetchUpdateRegistrador(data, id){
     })
     .then(res => res.json())
     .then(res => {
+        if(res.msg.includes('Duplicate entry')){
+            if(res.msg.includes('usuarios.email_UNIQUE')) return alert('Email já foi usado no sistema!')
+            if(res.msg.includes('usuarios.name_UNIQUE')) return alert('Nome já foi usado no sistema!')
+            if(res.msg.includes('usuarios.login_UNIQUE')) return alert('Login já foi usado no sistema!')
+  
+        }
         window.location.reload()
-        console.log(res)
     })
     .catch(error => {
         alert(error)

@@ -34,6 +34,9 @@ async function getZonas() {
 }
 
 module.exports = {
+    obrigado: (req, res) => {
+        res.render('obrigado')
+    },
     login: (req, res) => {
         res.render('login')
     },
@@ -41,7 +44,9 @@ module.exports = {
         console.log(req.local)
         const data = {
             admin: req.locals.admin,
-            public_id: req.locals.public_id
+            public_id: req.locals.public_id,
+            id_usuario: req.locals.id,
+            name: req.locals.name
         }
         res.render('home', data)
     },
@@ -56,23 +61,29 @@ module.exports = {
             registradores: registradoresByOffset || [],
             status: status,
             msg: msg,
-            typeUser: req.locals.typeUser
+            admin: req.locals.admin,
+            public_id: req.locals.public_id,
+            id_usuario: req.locals.id,
+            name: req.locals.name
+    
         };
 
         res.render('cadastroRegistrador', data);
     },
     cadastroPessoa: async (req, res) => {
+        // pagina publica onde pessoas iram se cadastrar sem estar logadas
         const zonasEleirorais = await getZonas();
-        const public_id = req.query.public_id
+        const public_id = req.query.ref
         const data = {
             zonasEleirorais: zonasEleirorais,
             typeUser: req.locals.typeUser,
-            public_id: public_id
+            public_id: public_id,
+            name: req.locals.name,
         }
   
         res.render('cadastroPessoa', data);
     },
-    getByOffset: async (req, res) => {
+    pessoasCadastradas: async (req, res) => {
         const limit = req.query.limit || 10;
         const offset = req.query.offset || 0;
 
@@ -86,17 +97,24 @@ module.exports = {
 
         const data = {
             pessoas: pessoas,
-            typeUser: req.locals.typeUser
+            admin: req.locals.admin,
+            public_id: req.locals.public_id,
+            id_usuario: req.locals.id,
+            name: req.locals.name
         };
         res.render('listaPessoa', data);
     },
     updatePessoa: async (req, res) => {
         const id = req.query.ref;
+ 
         const pessoa = await  pessoaModel.getById(id);
 
         const data = {
             pessoa: pessoa[0],
-            typeUser: req.locals.typeUser
+            admin: req.locals.admin,
+            public_id: req.locals.public_id,
+            id_usuario: req.locals.id,
+            name: req.locals.name
         };
         res.render('updatePessoa', data);
     }

@@ -11,9 +11,10 @@ function mascara(src, mascara) {
         }
     }
 }
-
-
-
+function handleClose(){
+    window.modal.fechar()
+    window.location.href ="/pessoas-cadastradas"
+}
 formUpdatePessoa.addEventListener('submit', async function(event) {
     event.preventDefault();
     const formData = new FormData(event.target)
@@ -28,7 +29,8 @@ formUpdatePessoa.addEventListener('submit', async function(event) {
     const dataRes = await res.json()
 
     if(res.status == 200){
-        window.modal.changeModal('Pessoa Atualizada com sucesso',  dataRes.msg, ()=> window.modal.fechar(), 'ok')
+        window.modal.changeModal('Pessoa Atualizada com sucesso',  dataRes.msg, ()=> handleClose(), 'ok')
+        
     }else{
         window.modal.changeModal('Erro ao atualizar pessoa',  dataRes.msg, ()=> window.modal.fechar(), 'ok')
     }

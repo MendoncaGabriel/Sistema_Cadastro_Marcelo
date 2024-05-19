@@ -43,26 +43,35 @@ async function handleInputCep(cep){
     }
 }
 
+function pegarReferencia(){
+    const urlParams = new URLSearchParams(window.location.search);
+    const ref = urlParams.get('ref');
+    return ref
+}
+
 
 formCreatePessoa.addEventListener('submit', function(event) {
     event.preventDefault();
+
+    const ref = pegarReferencia()
     
     const formData = new FormData(event.target)
     const data = Object.fromEntries(formData)
-
-    fetch('/pessoa/create', {
+    console.log('Enviando formulario')
+    fetch(`/pessoa/create?ref=${ref}`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(data)
     })
     .then(res => {
+
         if(res.status == 200 ){
-            window.modal.changeModal('Sucesso!', 'Cadastrado com sucesso!', ()=>{window.modal.fechar(), window.location.reload()}, 'ok')
+            window.location.href = '/obrigado'
         }
        return res.json()
     })
     .then(res => {
-   
+    console.log(res)
         if(res.msg.includes('Duplicate') && res.msg.includes('pessoas.telefone_UNIQUE')){
             window.modal.changeModal('Atenção!', 'Telefone já foi cadastrado', ()=>window.modal.fechar(), 'ok')
         }

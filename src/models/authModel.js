@@ -32,6 +32,7 @@ module.exports = {
                     login, 
                     id: usuario[0].id, 
                     admin: usuario[0].admin,
+                    name: usuario[0].name,
                     cadastrar_pessoas: usuario[0].cadastrar_pessoas,
                     cadastrar_usuarios: usuario[0].cadastrar_usuarios,
                     public_id: usuario[0].public_id,

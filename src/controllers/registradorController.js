@@ -32,8 +32,8 @@ module.exports = {
     getById: async (req, res) => {
         try {            
             const id = req.params.id;
-           
             const result = await registradorModel.getById(id);
+           
             res.status(200).json({msg: "Registrador pego com sucesso!", result});
         } catch (error) {
             console.log(error)
@@ -42,7 +42,6 @@ module.exports = {
     },
     update: async (req, res) => { 
         try {
-            console.log('controller')
             const id = req.params.id
             const {login, password, name, email} = req.body;
             await registradorModel.update(login, password, name, email, id);
@@ -52,6 +51,7 @@ module.exports = {
         }
     },
     delete: async (req, res) => {
+  
         try {
             const id = req.params.id
             await registradorModel.delete(id);

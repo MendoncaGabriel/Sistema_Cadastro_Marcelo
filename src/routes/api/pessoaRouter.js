@@ -75,25 +75,14 @@ function checkUpdate(req, res, next){
         const id = parseInt(req.params.id);
         if(!id) throw new Error('Parametro id não foi passado');
 
-        const {nome, telefone, email, zona, secao, cpf, rg, rua, bairro, cep, data_nascimento, numero, complemento, cidade, estado, pais, registrador_id} = req.body;
+        const {nome, telefone, zona, secao, registrador_id} = req.body;
         let faltando = '';
         if(!nome) faltando += ' nome';
         if(!telefone) faltando += ' telefone';
-        if(!email) faltando += ' email';
+       
         if(!zona) faltando += ' zona';
         if(!secao) faltando += ' secao';
-        if(!cpf) faltando += ' cpf';
-        if(!rg) faltando += ' rg';
-        if(!rua) faltando += ' rua';
-        if(!bairro) faltando += ' bairro';
-        if(!cep) faltando += ' cep';
-        if(!data_nascimento) faltando += ' data_nascimento';
-        if(!numero) faltando += ' numero';
-        if(!complemento) faltando += ' complemento';
-        if(!cidade) faltando += ' cidade';
-        if(!pais) faltando += ' pais';
-        if(!estado) faltando += ' estado';
-        if(!registrador_id) faltando += ' registrador_id';
+    
 
         if(faltando !== '') throw new Error('Esta faltando:' + faltando)
  
@@ -104,7 +93,7 @@ function checkUpdate(req, res, next){
 }
 
 // ROTAS
-router.post('/create', checkAuth, checkCreate, pessoaController.create);
+router.post('/create',  checkCreate, pessoaController.create); //pagina publica
 router.get('/getById/:id', checkAuth, checkGetById, pessoaController.getById);
 router.get('/getByDate/:data', checkAuth, checkGetByDate, pessoaController.getByDate);
 router.get('/getByOffset', checkAuth, checkGetByOffset, pessoaController.getByOffset);

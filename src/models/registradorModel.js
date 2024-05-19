@@ -32,7 +32,7 @@ module.exports = {
     },
     getById: async (id) => {
         return new Promise((resolve, reject) => {
-            const sql = "SELECT email, id, login, name FROM usuarios  WHERE id = ?";
+            const sql = "SELECT email, id, login, name FROM usuarios  WHERE id = ? AND ativo = 1";
             const values = [id];
 
             db.query(sql, values, (error, data) => {
@@ -45,8 +45,7 @@ module.exports = {
         });
     },
     update: async (login, password, name, email, id) => {
-        console.log(login, password, name, email, id)
-        
+
         return new Promise(async (resolve, reject)=>{
             const salt = await bycript.genSalt(10);
             const passwordhash = await bycript.hash(password, salt)
@@ -65,7 +64,11 @@ module.exports = {
     },
     delete: async (id) => {
         try {
-            const sql = 'delete from usuarios where id = ?'
+            const sql = `
+            UPDATE usuarios 
+                SET ativo = 0, email = NULL, login = NULL
+            WHERE id = ?;`;
+
             const values = [id]
             const result = await new Promise((resolve, reject) => {
                 db.query(sql, values, (error, data) => {
@@ -85,7 +88,7 @@ module.exports = {
     },
     getByOffset: (offset, limit) => {
         return new Promise((resolve, reject) => {
-            const sql = "SELECT id, name, login, email, date FROM usuarios  LIMIT ? OFFSET ?";
+            const sql = "SELECT id, name, login, email, date FROM usuarios WHERE ativo = 1  LIMIT ? OFFSET ?";
             const values = [limit, offset];
 
             db.query(sql, values, (error, data) => {
@@ -100,7 +103,7 @@ module.exports = {
     },
     existing: async (login, nome, email) => {
         return new Promise((resolve, reject) => {
-            const sql = 'SELECT * FROM usuarios WHERE login = ? OR name = ? OR email = ?'
+            const sql = 'SELECT * FROM usuarios WHERE (login = ? OR name = ? OR email = ?) AND ativo = 1'
             const values = [login, nome, email];
             db.query(sql, values, (error, result) => {
                 if (error) {
