@@ -1,0 +1,76 @@
+<section >
+    <div class="md:p-4">
+        <p>Pessoas cadastradas: <span><%= lengthPessoas[0].total  %></span></p>
+        <p>Registradores cadastrados: <span>x</span></p>
+
+    </div><br><hr><br>
+
+
+    <!-- FILTROS -->
+    <div class=" flex items-center space-x-4  overflow-x-auto">
+        
+        <select name="" id="" class="px-4 py-2 border rounded-sm bg-c5 text-white">
+            <option value="" selected disabled>Titulo</option>
+            <option value="">1</option>
+            <option value="">1</option>
+            <option value="">1</option>
+        </select>
+        <select name="" id="" class="px-4 py-2 border rounded-sm bg-c5 text-white">
+            <option value="" selected disabled>Titulo</option>
+            <option value="">1</option>
+            <option value="">1</option>
+            <option value="">1</option>
+        </select>
+        <select name="" id="" class="px-4 py-2 border rounded-sm bg-c5 text-white">
+            <option value="" selected disabled>Titulo</option>
+            <option value="">1</option>
+            <option value="">1</option>
+            <option value="">1</option>
+        </select>
+        <select name="" id="" class="px-4 py-2 border rounded-sm bg-c5 text-white">
+            <option value="" selected disabled>Titulo</option>
+            <option value="">1</option>
+            <option value="">1</option>
+            <option value="">1</option>
+        </select>
+        <select name="" id="" class="px-4 py-2 border rounded-sm bg-c5 text-white">
+            <option value="" selected disabled>Titulo</option>
+            <option value="">1</option>
+            <option value="">1</option>
+            <option value="">1</option>
+        </select>
+        
+
+    </div>
+
+    <br>
+    <div class="w-full overflow-x-auto">
+        <table class="w-full">
+            <caption class="text-lg font-semibold">Titulo</caption>
+            <thead>
+                <tr class="bg-gray-500 text-white">
+                    <th class="border border-gray-600 px-4 py-2">exemplo</th>
+                    <th class="border border-gray-600 px-4 py-2">exemplo</th>
+                    <th class="border border-gray-600 px-4 py-2">exemplo</th>
+                    <th class="border border-gray-600 px-4 py-2">exemplo</th>
+                </tr>
+            </thead>
+        </table>
+        <div class="overflow-y-auto max-h-96">
+            <table class="w-full">
+                <tbody>
+                    <% for (let i = 0; i < 100; i++) { %>
+                    <tr>
+                        <td class="border border-gray-400 px-4 py-2">exemplo</td>
+                        <td class="border border-gray-400 px-4 py-2">exemplo</td>
+                        <td class="border border-gray-400 px-4 py-2">exemplo</td>
+                        <td class="border border-gray-400 px-4 py-2">exemplo</td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+
+</section>

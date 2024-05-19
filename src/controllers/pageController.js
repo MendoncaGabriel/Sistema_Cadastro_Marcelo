@@ -3,6 +3,7 @@ const pessoaModel = require('../models/pessoaModel');
 const fs = require('fs');
 const path = require('path');
 const csv = require('csv-parser');
+const metadataSystem = require('../models/metadataSystem')
 
 async function getZonas() {
     const caminhoArquivo = path.resolve('src', 'public', 'arquivos', 'zonasEleitoraisAm.csv');
@@ -46,13 +47,14 @@ module.exports = {
     login: (req, res) => {
         res.render('login')
     },
-    home: (req, res) => {
-        console.log(req.local)
+    home: async (req, res) => {
+
         const data = {
             admin: req.locals.admin,
             public_id: req.locals.public_id,
             id_usuario: req.locals.id,
-            name: req.locals.name
+            name: req.locals.name,
+            lengthPessoas: await metadataSystem.lengthPessoas()
         }
         res.render('home', data)
     },

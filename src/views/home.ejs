@@ -13,11 +13,16 @@
 <body class="bg-gray-200 text-gray-600 relative">
   <%- include('components/navbar') %>
   
-
-
-
-  <section class="bg-white max-w-screen-lg min-h-80 m-auto p-10 shadow-lg flex items-center justify-center">
+  
+  <% if (admin == 1) { %>
+    <section class="bg-white max-w-screen-lg min-h-80 m-auto md:p-10 p-4 shadow-lg ">
+      <%- include('components/metricas') %>    
+    </section>
+  <% }else{ %>
+    <section class="bg-white max-w-screen-lg min-h-80 m-auto p-10 shadow-lg flex items-center justify-center">
       <h1 class="text-gray-200 text-5xl font-bold">BEM VINDO!</h1>
-  </section>
+    </section>
+  <% } %>
+
 </body>
 </html>
