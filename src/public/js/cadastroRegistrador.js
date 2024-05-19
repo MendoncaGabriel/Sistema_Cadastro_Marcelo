@@ -81,7 +81,7 @@ updateRegistrador.addEventListener('submit', function(event) {
 });
 
 function FetchUpdateRegistrador(data, id){
-    console.log(data)
+
     fetch('/registrador/update/'+ id, {
         method: 'PATCH',
         headers: {"Content-Type": "application/json"},
@@ -100,7 +100,6 @@ function FetchUpdateRegistrador(data, id){
     .catch(error => {
         alert(error)
         window.location.reload()
-        console.log(error)
     })
 }
 function FetchCreateRegistrador(data){

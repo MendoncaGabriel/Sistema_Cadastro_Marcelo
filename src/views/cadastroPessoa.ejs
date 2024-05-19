@@ -14,7 +14,7 @@
     <%- include('components/modal') %>
   
     <div class="bg-c1 p-4 flex-none max-w-screen-lg m-auto flex items-center  space-x-4 text-white relative">
-        <p class="absolute bottom-1 right-2 text-gray-300">referência: gabriel - #123</p>
+        <p class="absolute bottom-1 right-2 text-gray-300" id="ref"></p>
         <img src="logo.png" class="w-16" alt="">
         <h2 class="text-2xl font-bold">CADASTRA AI!</h2>
     </div>
@@ -65,7 +65,6 @@
  
 
             <!-- ENDEREÇO -->
-
             <h2 class="sm:col-span-2 md:col-span-3 lg:col-span-4 border-b-2 font-semibold">ENDEREÇO</h2>
             <div class="flex flex-col">
                 <label for="cep" class="text-sm">CEP</label>
@@ -100,7 +99,14 @@
                 <label for="pais" class="text-sm">Pais</label>
                 <input type="text" name="pais" value="Brasil" class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
             </div>
-
+            <div class="space-x-2 ">
+                <div>
+                    <input required type="checkbox" name="pais" value="Brasil" class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+                    <label for="pais" class="text-sm">Aceite nossos termos de uso</label>
+                </div>
+                <a href="/termos-de-uso" class="text-blue-700 hover:underline text-sm ">Ler termos</a>
+            </div>
+            
             <div class="sm:col-span-2 md:col-span-3 lg:col-span-4">
                 <button type="submit" class="rounded-sm ml-auto px-4 py-3 bg-green-600 hover:bg-green-500 duration-200 flex items-center justify-center space-x-2 font-bold text-xl text-white ">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">

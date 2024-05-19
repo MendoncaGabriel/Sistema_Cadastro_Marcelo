@@ -34,6 +34,12 @@ async function getZonas() {
 }
 
 module.exports = {
+    termosUso: (req, res) => {
+        res.render('termosDeUso')
+    },
+    politicaPrivacidade: (req, res) => {
+        res.render('politicaDePrivacidade')
+    },
     obrigado: (req, res) => {
         res.render('obrigado')
     },
@@ -84,11 +90,11 @@ module.exports = {
         res.render('cadastroPessoa', data);
     },
     pessoasCadastradas: async (req, res) => {
-        const limit = req.query.limit || 10;
+        const limit = req.query.limit || 20;
         const offset = req.query.offset || 0;
-
+   
         let pessoas = []
-        if(req.locals.typeUser == 'admin'){
+        if(req.locals.admin == 1){
             pessoas = await pessoaModel.getByOffsetAll(offset, limit);
         }else{
             const registradorId = req.locals.id

@@ -48,6 +48,8 @@ function pegarReferencia(){
     const ref = urlParams.get('ref');
     return ref
 }
+const ref = document.getElementById('ref')
+ref.innerText ='Referência: '+ pegarReferencia()
 
 
 formCreatePessoa.addEventListener('submit', function(event) {
@@ -66,12 +68,11 @@ formCreatePessoa.addEventListener('submit', function(event) {
     .then(res => {
 
         if(res.status == 200 ){
-            window.location.href = '/obrigado'
+            window.location.href = `/obrigado?ref=${ref}`
         }
        return res.json()
     })
     .then(res => {
-    console.log(res)
         if(res.msg.includes('Duplicate') && res.msg.includes('pessoas.telefone_UNIQUE')){
             window.modal.changeModal('Atenção!', 'Telefone já foi cadastrado', ()=>window.modal.fechar(), 'ok')
         }

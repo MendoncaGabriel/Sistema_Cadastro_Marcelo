@@ -9,6 +9,8 @@ const somenteAdmin = require('../../middleware/somenteAdmin');
 // não protegida
 router.get('/login', pageController.login);
 router.get('/obrigado', pageController.obrigado);
+router.get('/termos-de-uso', pageController.termosUso);
+router.get('/politica-de-privacidade', pageController.politicaPrivacidade);
 
 // Rotas protegidas
 router.get('/', checkAuth, pageController.home);
