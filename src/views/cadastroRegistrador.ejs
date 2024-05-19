@@ -10,11 +10,12 @@
   <!-- TAILWINDCSS -->
   <link rel="stylesheet" href="tailwindcss.css">
 </head>
-<body class="bg-gray-200 text-gray-600 relative">
+
+<body class="bg-gray-200 text-gray-600 relative overflow-x-hidden">
   <%- include('components/navbar') %>
   <%- include('components/modal') %>
 
-  <section class="bg-white max-w-screen-xl min-h-80 m-auto p-10 shadow-lg  ">
+  <section class="bg-white max-w-screen-xl min-h-80 m-auto md:p-10 p-4 shadow-lg  ">
   
     <!-- CRIAR REGISTRADOR -->
     <form id="createRegistrador"class="block m-auto text-gray-600  mb-10" >
@@ -25,20 +26,20 @@
         <span>Salvar</span>
       </button>
   
-      <div class="flex items-center justify-center space-x-4">
-        <div class="flex flex-col">
+      <div class="flex flex-col md:flex-row items-center justify-center space-x-0  md:space-x-4 ">
+        <div class="flex flex-col w-full">
           <label for="name" class="text-sm">Nome</label>
-          <input required type="text" name="name"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+          <input required type="text" name="name"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm ">
         </div>
-        <div class="flex flex-col">
+        <div class="flex flex-col w-full">
           <label for="email" class="text-sm">E-mail</label>
           <input type="email" name="email"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
         </div>
-        <div class="flex flex-col">
+        <div class="flex flex-col w-full">
           <label for="login" class="text-sm">Login</label>
           <input required type="text" name="login" class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
         </div>
-        <div class="flex flex-col">
+        <div class="flex flex-col w-full">
           <label for="password" class="text-sm">Senha</label>
           <input required type="password" name="password" class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
         </div>
@@ -63,20 +64,20 @@
         </button>
       </div>
       
-      <div class="flex items-center justify-center space-x-4">
-        <div class="flex flex-col">
+      <div class="flex flex-col md:flex-row items-center justify-center space-x-0  md:space-x-4">
+        <div class="flex flex-col w-full">
           <label for="name" class="text-sm">Nome</label>
           <input id="updatename" required type="text" name="name"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
         </div>
-        <div class="flex flex-col">
+        <div class="flex flex-col w-full">
           <label for="email" class="text-sm">E-mail</label>
           <input id="updateEmail" type="email" name="email"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
         </div>
-        <div class="flex flex-col">
+        <div class="flex flex-col w-full">
           <label for="login" class="text-sm">Login</label>
           <input id="updateLogin" required type="text" name="login" class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
         </div>
-        <div class="flex flex-col">
+        <div class="flex flex-col w-full">
           <label for="password" class="text-sm">Senha</label>
           <input id="updatePassword" placeholder="Digite uma nova senha" required type="password" name="password" class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
         </div>
@@ -86,60 +87,60 @@
     <hr class="mb-10">
 
     <!-- LISTA DE REGISTRADORES -->
-    <table class="m-auto mb-10 text-sm">
-      <caption class="text-lg font-semibold">REGISTRADORES CADASTRADOS</caption>
-
-      <thead >
-        <tr class="bg-gray-500 text-white">
-          <th class="border border-gray-600 px-2 py-1">Id</th>
-          <th class="border border-gray-600 px-2 py-1">Nome</th>
-          <th class="border border-gray-600 px-2 py-1">Login</th>
-          <th class="border border-gray-600 px-2 py-1">Email</th>
-          <th class="border border-gray-600 px-2 py-1">Registro</th>
-          <th class="border border-gray-600 px-2 py-1">Editar</th>
-          <th class="border border-gray-600 px-2 py-1">Remover</th>
-        </tr>
-      </thead>
-      <tbody>
-
-
-        <% function converterParaPtBr(dataHora) {
-          const data = new Date(dataHora);
-          const dia = data.getDate().toString().padStart(2, '0');
-          const mes = (data.getMonth() + 1).toString().padStart(2, '0');
-          const ano = data.getFullYear();
-          const horas = data.getHours().toString().padStart(2, '0');
-          const minutos = data.getMinutes().toString().padStart(2, '0');
-          return `${dia}/${mes}/${ano} -  ${horas}h:${minutos}min`;
-        }%>
-        <% registradores.map(e => { %>     
-
-          <tr>
-            <td class="border border-gray-400 px-2 py-1"><%= e.id  %></td>
-            <td class="border border-gray-400 px-2 py-1"><%= e.name || '' %></td>
-            <td class="border border-gray-400 px-2 py-1"><%= e.login || '' %></td>
-            <td class="border border-gray-400 px-2 py-1"><%= e.email || '' %></td>
-            <td class="border border-gray-400 px-2 py-1 text-center"><%= converterParaPtBr(e.date ) || ''%></td>
-            <td class="border border-gray-400 px-2 py-1 text-center">
-              <button onclick="handleUpdateRegistrador('<%= e.id  %>')" class="flex items-center space-x-2 justify-between bg-blue-500 hover:bg-blue-600  duration-100 hover:shadow-md text-white px-4 py-2 rounded-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
-                  <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001"/>
-                </svg>
-                <span>Editar</span>
-              </button>
-            </td>
-            <td class="border border-gray-400 px-4 py-2 text-center">
-              <button type="button" onclick="handleRemoveRegistrador('<%= e.id  %>')" class="flex items-center space-x-2 justify-between bg-red-500 hover:bg-red-600 duration-100  hover:shadow-md text-white px-4 py-2 rounded-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
-                </svg>
-                <span>Remover</span>
-              </button>
-            </td>
-          </tr>    
-        <% }) %>
-      </tbody>
-    </table>
+    <div class="max-w-4xl mx-auto p-0 md:p-6 bg-white shadow-md rounded-md">
+      <div class="overflow-x-auto">
+          <table class="m-auto mb-10 text-sm ">
+              <caption class="text-lg font-semibold">REGISTRADORES CADASTRADOS</caption>
+              <thead>
+                  <tr class="bg-gray-500 text-white">
+                      <th class="border border-gray-600 px-2 py-1">Id</th>
+                      <th class="border border-gray-600 px-2 py-1">Nome</th>
+                      <th class="border border-gray-600 px-2 py-1">Login</th>
+                      <th class="border border-gray-600 px-2 py-1">Email</th>
+                      <th class="border border-gray-600 px-2 py-1">Registro</th>
+                      <th class="border border-gray-600 px-2 py-1">Editar</th>
+                      <th class="border border-gray-600 px-2 py-1">Remover</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <% function converterParaPtBr(dataHora) {
+                      const data = new Date(dataHora);
+                      const dia = data.getDate().toString().padStart(2, '0');
+                      const mes = (data.getMonth() + 1).toString().padStart(2, '0');
+                      const ano = data.getFullYear();
+                      const horas = data.getHours().toString().padStart(2, '0');
+                      const minutos = data.getMinutes().toString().padStart(2, '0');
+                      return `${dia}/${mes}/${ano} -  ${horas}h:${minutos}min`;
+                  }%>
+                  <% registradores.map(e => { %>     
+                  <tr>
+                      <td class="border border-gray-400 px-2 py-1"><%= e.id %></td>
+                      <td class="border border-gray-400 px-2 py-1"><%= e.name || '' %></td>
+                      <td class="border border-gray-400 px-2 py-1"><%= e.login || '' %></td>
+                      <td class="border border-gray-400 px-2 py-1"><%= e.email || '' %></td>
+                      <td class="border border-gray-400 px-2 py-1 text-center"><%= converterParaPtBr(e.date) || '' %></td>
+                      <td class="border border-gray-400 px-2 py-1 text-center">
+                          <button onclick="handleUpdateRegistrador('<%= e.id %>')" class="flex items-center space-x-2 justify-between bg-blue-500 hover:bg-blue-600 duration-100 hover:shadow-md text-white px-4 py-2 rounded-sm">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+                                  <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001"/>
+                              </svg>
+                              <span>Editar</span>
+                          </button>
+                      </td>
+                      <td class="border border-gray-400 px-4 py-2 text-center">
+                          <button type="button" onclick="handleRemoveRegistrador('<%= e.id %>')" class="flex items-center space-x-2 justify-between bg-red-500 hover:bg-red-600 duration-100 hover:shadow-md text-white px-4 py-2 rounded-sm">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+                              </svg>
+                              <span>Remover</span>
+                          </button>
+                      </td>
+                  </tr>    
+                  <% }) %>
+              </tbody>
+          </table>
+      </div>
+  </div>
     
   </section>
 </body>

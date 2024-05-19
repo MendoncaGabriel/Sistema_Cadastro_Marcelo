@@ -1,0 +1,43 @@
+<div id="menuMobile" class="w-[90%] min-h-screen bg-white drop-shadow-lg fixed left-[-100%] hidden duration-300 top-0 z-50 p-5  ">
+    
+    <div class="flex items-center justify-between">
+        <a href="/">
+            <img src="logo.png" alt="logo" class="w-10 ">
+        </a>
+        <button onclick="fecharMenu()" >
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-lg text-red-600" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+            </svg>
+        </button>
+    </div>
+    <br>
+    <hr>
+    <br>
+    
+
+    <nav class="text-lg space-y-4">
+        <% if (typeof admin != "undefined" && admin && admin == 1) { %>
+            <a href="cadastro-registrador" class="hover:underline flex items-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0"/>
+                </svg>
+                <span>Usuários</span>
+            </a>
+        <% } %>
+    
+        <a href="cadastro-pessoa?ref=<%=id_usuario %>-<%= public_id %>" target="_blank" class="hover:underline flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-share-fill" viewBox="0 0 16 16">
+                <path d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5"/>
+            </svg>
+            <span>Cadastrar de pessoas</span>
+        </a>
+    
+        <a href="pessoas-cadastradas"  class="hover:underline flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+            <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
+            </svg>
+            <span>Pessoas Cadastradas</span>
+        </a>
+
+    </nav>
+</div>
