@@ -155,5 +155,23 @@ module.exports = {
                 }
             })
         })
+    },
+    lestCreate: async () => {
+        return new Promise((resolve, reject) => {
+            const sql = `
+            SELECT * FROM pessoas
+                ORDER BY data_registro DESC
+            LIMIT 1;`;
+
+            const values = [];
+
+            db.query(sql, values, (error, result) => {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(result)
+                }
+            })
+        })
     }
 }    
