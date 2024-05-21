@@ -91,11 +91,11 @@ module.exports = {
             const sql = "SELECT id, name, login, email, date FROM usuarios WHERE ativo = 1  LIMIT ? OFFSET ?";
             const values = [limit, offset];
 
-            db.query(sql, values, (error, data) => {
+            db.query(sql, values, (error, result) => {
                 if(error){
                     reject(error);
                 }else{
-                    resolve(data);
+                    resolve(result);
                 };
             });
 

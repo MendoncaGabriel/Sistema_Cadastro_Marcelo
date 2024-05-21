@@ -33,9 +33,11 @@ module.exports = {
             ];
             db.query(sql, values, (error, result) => {
                 if(error){
+                    console.log(error)
                     reject(error)
                 }else{
                     resolve(result)
+
                 }
             })
         })
@@ -92,6 +94,21 @@ module.exports = {
             })
         })
     },
+    lestPessoas: async (offset, limit, id) => {
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT * FROM pessoas WHERE usuarios_id = ? ORDER BY data_registro DESC LIMIT ? OFFSET ?";
+            const values = [id, limit, offset];
+            db.query(sql, values, (error, result) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(result);
+                }
+            });
+        });
+    },
+    
+    
     getByRegistradorId: async (id) => {
         return new Promise((resolve, reject) => {
             const sql = "SELECT * FROM pessoas WHERE usuarios_id = ?";

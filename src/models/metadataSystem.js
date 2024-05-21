@@ -14,5 +14,17 @@ module.exports = {
                 }
             })
         })
+    },
+    lengthRegistradores: () => {
+        const sql = "select count(*) as total from usuarios;"
+        return new Promise((resolve, reject)=> {
+            db.query(sql, (error, result) => {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(result)
+                }
+            })
+        })
     }
 }

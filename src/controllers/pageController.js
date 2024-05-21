@@ -34,6 +34,25 @@ async function getZonas() {
     });
 }
 
+async function getDataHome(req){
+    try {
+        const data = {
+            admin: req.locals.admin,
+            public_id: req.locals.public_id,
+            id_usuario: req.locals.id,
+            name: req.locals.name,
+            lengthPessoas: await metadataSystem.lengthPessoas(),
+            lengthRegistradores: await metadataSystem.lengthRegistradores(),
+            registradores: await registradorModel.getByOffset(0, 100),
+            lestPessoas: await pessoaModel.lestPessoas(0, 10, parseInt(req.locals.id))
+        }
+
+        return data
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
 module.exports = {
     termosUso: (req, res) => {
         res.render('termosDeUso')
@@ -48,15 +67,13 @@ module.exports = {
         res.render('login')
     },
     home: async (req, res) => {
-
-        const data = {
-            admin: req.locals.admin,
-            public_id: req.locals.public_id,
-            id_usuario: req.locals.id,
-            name: req.locals.name,
-            lengthPessoas: await metadataSystem.lengthPessoas()
+        try {
+            const data = await getDataHome(req)
+            res.render('home', data)
+        } catch (error) {
+            console.log(error)
+            res.render('500')
         }
-        res.render('home', data)
     },
     cadastroRegistrador: async (req, res) => {
         const offset = req.query.offset || 0;

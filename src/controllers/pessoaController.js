@@ -2,18 +2,9 @@ const pessoaModel = require('../models/pessoaModel');
 
 module.exports = {
     create: async (req, res) => {
-        // referente a pagina publica
         try {
-                // Obter a URL completa
-                const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
-
-                // Para obter o parâmetro 'ref'
-                const ref = req.query.ref;
-                console.log(ref, fullUrl)//dando undefined
-
+            const ref = req.query.ref;
             const data = req.body;
-
-            // pegar id do usuario
             const regex = /^(\d{1,3})-/;
             const match = ref.match(regex);
             const usuarios_id = match[1];

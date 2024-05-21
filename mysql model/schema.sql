@@ -1,1 +1,0 @@
-SELECT * FROM sistema_cadastro.endereco;
