@@ -38,6 +38,7 @@ async function getDataHome(req){
     try {
         const data = {
             admin: req.locals.admin,
+            zonas: await  getZonas(),
             public_id: req.locals.public_id,
             id_usuario: req.locals.id,
             name: req.locals.name,
@@ -46,7 +47,6 @@ async function getDataHome(req){
             registradores: await registradorModel.getByOffset(0, 100),
             lestPessoas: await pessoaModel.lestPessoas(0, 10, parseInt(req.locals.id))
         }
-
         return data
     } catch (error) {
         throw new Error(error)

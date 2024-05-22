@@ -107,8 +107,6 @@ module.exports = {
             });
         });
     },
-    
-    
     getByRegistradorId: async (id) => {
         return new Promise((resolve, reject) => {
             const sql = "SELECT * FROM pessoas WHERE usuarios_id = ?";
@@ -122,6 +120,47 @@ module.exports = {
             });
         });
     },
+    getBySecao: async (secao) => {
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT * FROM pessoas WHERE secao = ?";
+            const values = [secao];
+            db.query(sql, values, (error, result) => {
+                if(error){
+                    reject(error);
+                }else{
+                    resolve(result);
+                };
+            });
+        });
+    },
+    getByZona: async (zona) => {
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT * FROM pessoas WHERE zona = ?";
+            const values = [zona];
+            db.query(sql, values, (error, result) => {
+                if(error){
+                    reject(error);
+                }else{
+                    resolve(result);
+                };
+            });
+        });
+    },
+    getByName: async (nome) => {
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT * FROM pessoas WHERE LOWER(nome) LIKE ?";
+            const values = [`%${nome.toLowerCase()}%`]; 
+            db.query(sql, values, (error, result) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(result);
+                    console.log(result)
+                }
+            });
+        });
+    },
+
     update: async (pessoa_id, usuario_id, newData) => {
 
         return new Promise((resolve, reject) => {

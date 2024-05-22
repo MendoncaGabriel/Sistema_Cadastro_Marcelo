@@ -98,6 +98,9 @@ router.get('/getById/:id', checkAuth, checkGetById, pessoaController.getById);
 router.get('/getByDate/:data', checkAuth, checkGetByDate, pessoaController.getByDate);
 router.get('/getByOffset', checkAuth, checkGetByOffset, pessoaController.getByOffset);
 router.get('/getByRegistradorId/:id', checkAuth, checkGetByRegistradorId, pessoaController.getByRegistradorId);
+router.get('/getByZona/:zona', checkAuth, pessoaController.getByZona);
+router.get('/getBySecao/:secao', checkAuth, pessoaController.getBySecao);
+router.get('/getByName/:name', checkAuth, pessoaController.getByName);
 router.patch('/update/:id', checkAuth, checkUpdate, pessoaController.update);
 router.delete('/delete/:id', checkAuth, checkDelete, pessoaController.delete);
 

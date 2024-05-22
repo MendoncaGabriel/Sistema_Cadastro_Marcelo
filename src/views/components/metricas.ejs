@@ -30,19 +30,47 @@
 
 
     <!-- FILTROS -->
-    <div class=" flex items-center space-x-4  overflow-x-auto">
+    <div class=" md:flex md:items-center grid grid-cols-2 gap-4 md:space-x-4  overflow-x-auto ">
 
+        <!-- Buscar pessoas cadastradas por registradores -->
         <div class="flex flex-col space-y-2">
             <label for="registrador" class="text-sm text-gray-600">Buscar pessoas por registrador</label>
             <select  name="" id="registradorSelect" class="px-4 py-2 border rounded-sm bg-c5 text-white">
                 <option value="" selected disabled>Registradores</option>
                 <% if (typeof registradores !== "undefined" && registradores) { %>
-                        <% registradores.map(element => { %>
-                            <option value="<%= element.id %>"><%= element.name?.toUpperCase() %></option>
+                    <% registradores.map(element => { %>
+                        <option value="<%= element.id %>"><%= element.name?.toUpperCase() %></option>
+                    <% }) %>
+                <% } %>
+            </select>
+        </div>
+
+        <!-- Buscar Zona -->
+        <div class="flex flex-col space-y-2">
+            <label for="zonaSelect" class="text-sm text-gray-600">Buscar por Zona</label>
+            <select  name="" id="zonaSelect" class="px-4 py-2 border rounded-sm bg-c5 text-white">
+                <option value="" selected disabled>Zona</option>
+                <% if (typeof zonas !== "undefined" && zonas) { %>
+                        <% zonas.map(element => { %>
+                            <option value="<%= element.numero_zona %>"><%= element.numero_zona %></option>
                         <% }) %>
                 <% } %>
             </select>
         </div>
+
+        <!-- Buscar por nome -->
+        <div class="flex flex-col space-y-2">
+            <label for="inputName" class="text-sm text-gray-600">Buscar por Nome</label>
+            <input type="text" name="" id="inputName" class="border rounded-sm px-4 py-2" placeholder="Digite um nome">
+        </div>
+
+        <!-- Buscar por seção -->
+        <div class="flex flex-col space-y-2 ">
+            <label for="inputSecao" class="text-sm text-gray-600">Buscar por seção</label>
+            <input type="number" name="" id="inputSecao" class="border rounded-sm px-4 py-2" placeholder="Digite a seção">
+        </div>
+
+
     </div>
 
     <br>
@@ -84,13 +112,36 @@
 <script>
     const registradorSelect = document.getElementById('registradorSelect');
     const tbodyTable = document.getElementById('tbodyTable');
+    const zonaSelect = document.getElementById('zonaSelect');
+    const inputName = document.getElementById('inputName');
+    const inputSecao = document.getElementById('inputSecao');
 
+    // OUVIDORES DE EVENTOS
     registradorSelect.addEventListener('change', async event => {
         const registradorId =  registradorSelect.value;
         const pessoas = await getByRegistradorId(registradorId)
         changeTable(pessoas.result)
     })
+    zonaSelect.addEventListener('change', async event => {
+        const zona =  zonaSelect.value;
+        const pessoas = await getByZona(zona)
+        changeTable(pessoas.result)
+    })
+    inputName.addEventListener('keyup', async event => {
+        const key = event.which || e.keyCode;
+        if(key !== 13 ) return;
+        const pessoas = await getByName(inputName.value)
+        changeTable(pessoas.result)
+    })
+    inputSecao.addEventListener('keyup', async event => {
+        const key = event.which || e.keyCode;
+        if(key !== 13 ) return;
+        const pessoas = await getBySecao(inputSecao.value)
+        console.log(pessoas)
+        changeTable(pessoas.result)
+    })
 
+    // CONSULTAS
     function getByRegistradorId(id){
         return new Promise((resolve, reject) => {
             fetch('/pessoa/getByRegistradorId/' + id, {
@@ -102,9 +153,45 @@
             .catch(error => reject(error))
         })
     }
+    function getBySecao(secao){
+        return new Promise((resolve, reject)=>{
+            fetch('/pessoa/getBySecao/' + secao, {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'}
+            })
+            .then(res => res.json())
+            .then(res => resolve(res))
+            .catch(error => reject(error))
+        })
+    }
+    function getByZona(zona){
+        return new Promise((resolve, reject)=>{
+            fetch('/pessoa/getByZona/' + zona, {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'}
+            })
+            .then(res => res.json())
+            .then(res => resolve(res))
+            .catch(error => reject(error))
+        })
+    }
+    function getByName(name){
+        return new Promise((resolve, reject)=>{
+            fetch('/pessoa/getByName/' + name, {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'}
+            })
+            .then(res => res.json())
+            .then(res => resolve(res))
+            .catch(error => reject(error))
+        })
+    }
 
+
+    //PREENCHIMENTO TABLE
     function changeTable(data){
         tbodyTable.innerHTML = "";
+        if(data.length == 0) return;
 
         data.forEach(e => {
             let component = `
@@ -119,6 +206,7 @@
 
             tbodyTable.innerHTML = component;
         });
+        
     }
 
     // FORMATAÇÃO

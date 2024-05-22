@@ -46,6 +46,35 @@ module.exports = {
             res.status(500).json({msg: error.message})
         }
     },
+    getBySecao: async (req, res) => {
+        try {
+            const secao = parseInt(req.params.secao);
+            const result = await  pessoaModel.getBySecao(secao);
+  
+            res.status(200).json({msg: "Consulta realizada com sucesso", result});
+        } catch (error) {
+            res.status(500).json({msg: error.message});
+        };
+    },
+    getByZona: async (req, res) => {
+        try {
+            const zona = parseInt(req.params.zona);
+            const result = await  pessoaModel.getByZona(zona);
+            res.status(200).json({msg: "Consulta realizada com sucesso", result});
+        } catch (error) {
+            res.status(500).json({msg: error.message});
+        };
+    },
+    getByName: async (req, res) => {
+        try {
+            const name = req.params.name;
+            const result = await  pessoaModel.getByName(name);
+            res.status(200).json({msg: "Consulta realizada com sucesso", result});
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({msg: error.message});
+        };
+    },
     getByRegistradorId: async (req, res) => {
         try {
             const id = parseInt(req.params.id);
