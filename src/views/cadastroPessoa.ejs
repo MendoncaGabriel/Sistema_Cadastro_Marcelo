@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <!-- TAILWINDCSS -->
     <link rel="stylesheet" href="tailwindcss.css">
+    <!-- Cleave.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.6.0/cleave.min.js"></script>
+
 </head>
 <body class="bg-gray-200 text-gray-600">
     <%- include('components/modal') %>
@@ -28,7 +31,7 @@
             </div>
             <div class="flex flex-col">
                 <label for="data_nascimento" class="text-sm">Data de Nascimento</label>
-                <input type="text" name="data_nascimento" onkeypress="mascara(this, '##/##/####')" maxlength="10"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+                <input type="text" name="data_nascimento" id="data_nascimento"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
             </div>
             <div class="flex flex-col">
                 <label for="text" class="text-sm">Zona</label>
@@ -51,16 +54,16 @@
             </div>
             <div class="flex flex-col">
                 <label for="text" class="text-sm">Telefone</label>
-                <input required type="tel" name="telefone" onkeypress="mascara(this, '(##) #####-####')" maxlength="15"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+                <input required type="tel" name="telefone"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
             </div>
      
             <div class="flex flex-col">
                 <label for="cpf" class="text-sm">CPF</label>
-                <input  type="text" name="cpf" onkeypress="mascara(this, '###.###.###-##')" maxlength="14"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+                <input  type="text" name="cpf"   class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
             </div>
             <div class="flex flex-col">
                 <label for="rg" class="text-sm">RG</label>
-                <input  type="text" name="rg" onkeypress="mascara(this, '#######-#')" maxlength="9" class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+                <input  type="text" name="rg"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
             </div>
  
 
@@ -68,7 +71,7 @@
             <h2 class="sm:col-span-2 md:col-span-3 lg:col-span-4 border-b-2 font-semibold">ENDEREÇO</h2>
             <div class="flex flex-col">
                 <label for="cep" class="text-sm">CEP</label>
-                <input id="inputCep" type="text" name="cep" onkeypress="mascara(this, '#####-###')" maxlength="9"  class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
+                <input id="inputCep" type="text" name="cep"   class="border-2 border-gray-300 bg-gray-100 px-4 py-2 rounded-sm">
             </div>
             <div class="flex flex-col">
                 <label for="rua" class="text-sm">Rua</label>

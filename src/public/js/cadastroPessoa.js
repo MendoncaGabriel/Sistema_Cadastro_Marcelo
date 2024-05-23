@@ -1,15 +1,36 @@
 const formCreatePessoa = document.getElementById('formCreatePessoa');
-//ajustar função para aceitar em celular e copiar e colar
-function mascara(src, mascara) {
-    const campo = src.value.length;
-    const texto = mascara.substring(campo);
-    if (texto.charAt(0) !== '#') {
-        src.value += texto.charAt(0);
-        if (texto.charAt(1) === ' ') {
-            src.value += ' ';
-        }
-    }
-}
+
+var cleaveData = new Cleave('[name=data_nascimento]', {
+    date: true,
+    datePattern: ['d', 'm', 'Y']
+});
+ // Formatação de CPF
+ var cleaveCPF = new Cleave('[name=cpf]', {
+    delimiters: ['.', '.', '-'],
+    blocks: [3, 3, 3, 2],
+    numericOnly: true
+});
+
+// Formatação de RG
+var cleaveRG = new Cleave('[name=rg]', {
+    delimiters: ['.', '.', '-'],
+    blocks: [2, 3, 3, 1],
+    numericOnly: true
+});
+
+// Formatação de CEP
+var cleaveCEP = new Cleave('[name=cep]', {
+    delimiters: ['-'],
+    blocks: [5, 3],
+    numericOnly: true
+});
+
+// Formatação de Telefone
+var cleaveTelefone = new Cleave('[name=telefone]', {
+    delimiters: ['(', ') ', '-', ' '],
+    blocks: [0, 2, 5, 4],
+    numericOnly: true
+});
 
 
 // Buscar cep
