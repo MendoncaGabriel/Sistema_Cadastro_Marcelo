@@ -1,11 +1,10 @@
 const formCreatePessoa = document.getElementById('formCreatePessoa');
-
+//ajustar função para aceitar em celular e copiar e colar
 function mascara(src, mascara) {
     const campo = src.value.length;
     const texto = mascara.substring(campo);
     if (texto.charAt(0) !== '#') {
         src.value += texto.charAt(0);
-        // Verifica se o próximo caractere na máscara é um espaço
         if (texto.charAt(1) === ' ') {
             src.value += ' ';
         }

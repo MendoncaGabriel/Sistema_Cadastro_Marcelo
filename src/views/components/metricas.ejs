@@ -30,10 +30,10 @@
 
 
     <!-- FILTROS -->
-    <div class=" md:flex md:items-center grid grid-cols-2 gap-4 md:space-x-4  overflow-x-auto ">
+    <div class=" md:flex md:items-center grid grid-cols-2 gap-2 md:space-x-4  overflow-x-auto ">
 
         <!-- Buscar pessoas cadastradas por registradores -->
-        <div class="flex flex-col space-y-2">
+        <div class="flex flex-col space-y-2 justify-between">
             <label for="registrador" class="text-sm text-gray-600">Buscar pessoas por registrador</label>
             <select  name="" id="registradorSelect" class="px-4 py-2 border rounded-sm bg-c5 text-white">
                 <option value="" selected disabled>Registradores</option>
@@ -46,7 +46,7 @@
         </div>
 
         <!-- Buscar Zona -->
-        <div class="flex flex-col space-y-2">
+        <div class="flex flex-col space-y-2 justify-between">
             <label for="zonaSelect" class="text-sm text-gray-600">Buscar por Zona</label>
             <select  name="" id="zonaSelect" class="px-4 py-2 border rounded-sm bg-c5 text-white">
                 <option value="" selected disabled>Zona</option>
@@ -59,7 +59,7 @@
         </div>
 
         <!-- Buscar por nome -->
-        <div class="flex flex-col space-y-2">
+        <div class="flex flex-col space-y-2 ">
             <label for="inputName" class="text-sm text-gray-600">Buscar por Nome</label>
             <input type="text" name="" id="inputName" class="border rounded-sm px-4 py-2" placeholder="Digite um nome">
         </div>
@@ -80,11 +80,11 @@
             <thead>
                 <tr class="bg-gray-500 text-white">
                     <th class="border border-gray-600 px-4 py-2">ID</th>
-                    <th class="border border-gray-600 px-4 py-2">Nome</th>
-                    <th class="border border-gray-600 px-4 py-2">Telefone</th>
+                    <th class="border border-gray-600 px-4 py-2 min-w-52">Nome</th>
+                    <th class="border border-gray-600 px-4 py-2 min-w-40">Telefone</th>
                     <th class="border border-gray-600 px-4 py-2">Zona</th>
                     <th class="border border-gray-600 px-4 py-2">Seção</th>
-                    <th class="border border-gray-600 px-4 py-2">Registro</th>
+                    <th class="border border-gray-600 px-4 py-2 min-w-52">Registro</th>
                 </tr>
             </thead>
             <tbody id="tbodyTable" class="max-w-96 overflow-y-auto">
