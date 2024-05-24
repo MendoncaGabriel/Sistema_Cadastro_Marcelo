@@ -11,11 +11,11 @@ module.exports = {
         const usuario = await new Promise ((resolve, reject) => {
             db.query(sql, values, (error, data) => {
                 if(error){
-                    reject(error)
+                    reject(error);
                 }else{
-                    resolve(data)
+                    resolve(data);
                 }
-            })
+            });
         });
 
         return new Promise(async (resolve, reject) => {
@@ -38,16 +38,15 @@ module.exports = {
                     public_id: usuario[0].public_id,
                     date: new Date()
                 };
-                console.log(payload)
-                const validade = '30d'
-                const secret = process.env.SECRET_JWT
+
+                const validade = '30d';
+                const secret = process.env.SECRET_JWT;
                 const token = jwt.sign(payload, secret, { expiresIn: validade });
                 resolve(token);
                 
             } catch (error) {
-                reject(error)
+                reject(error);
             }
-        })
+        });
     }
-  
 };

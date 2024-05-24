@@ -13,16 +13,21 @@ module.exports = {
                 httpOnly: true // O cookie só será acessível pelo servidor
             });
             
-            res.redirect('/')
+            res.redirect('/');
         } catch (error) {
-            res.status(401).json({msg: error.message})
+            res.status(401).json({msg: error.message});
         }
     },
     logout: async (req, res) => {
-        res.cookie('token', null, { 
-            maxAge: 0, // Tempo de vida zero para excluir imediatamente
-            httpOnly: true // O cookie só será acessível pelo servidor
-        });
-        res.redirect('/login');
+        try{
+            res.cookie('token', null, { 
+                maxAge: 0, // Tempo de vida zero para excluir imediatamente
+                httpOnly: true // O cookie só será acessível pelo servidor
+            });
+            
+            res.redirect('/login');
+        }catch(error){
+            res.status(401).json({msg: error.message})
+        }
     }
 }

@@ -1,4 +1,5 @@
 const createError = require('http-errors');
+const compression = require('compression');
 const cookieParser = require('cookie-parser');
 const express = require('express');
 const logger = require('morgan');
@@ -6,6 +7,19 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
+
+app.use(compression({
+  level: 7, // Nível de compressão (padrão é 6) max 9
+  threshold: 0, // Compressão para todas as respostas
+  filter: (req, res) => {
+    if (req.headers['x-no-compression']) {
+      // Não comprime se este cabeçalho está presente
+      return false;
+    }
+    // Padrão de compressão
+    return compression.filter(req, res);
+  }
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, './src/views'));

@@ -31,16 +31,15 @@ module.exports = {
                 pais || null,
                 usuarios_id || null,
             ];
+
             db.query(sql, values, (error, result) => {
                 if(error){
-                    console.log(error)
-                    reject(error)
+                    reject(error);
                 }else{
-                    resolve(result)
-
+                    resolve(result);
                 }
-            })
-        })
+            });
+        });
     },
     getById: async (id) => {
         return new Promise((resolve, reject) => {
@@ -48,14 +47,14 @@ module.exports = {
             const values = [id];
             db.query(sql, values, (error, result) => {
                 if(error){
-                    reject(error)
+                    reject(error);
                 }else{
-                    resolve(result)
+                    resolve(result);
                 }
-            })
-        })
+            });
+        });
     },
-    getByDate: async (result) => {
+    getByDate: async (data) => {
         return new Promise((resolve, reject) => {
             const sql = "SELECT * FROM pessoas WHERE DATE(data_registro) = ?";
             const values = [data];
@@ -74,12 +73,12 @@ module.exports = {
             const values = [limit, offset];
             db.query(sql, values, (error, result) => {
                 if(error){
-                    reject(error)
+                    reject(error);
                 }else{
-                    resolve(result)
+                    resolve(result);
                 }
-            })
-        })
+            });
+        });
     },
     getByOffsetAndIdRegistrador: async (offset, limit, registradorId) => {
         return new Promise((resolve, reject) => {
@@ -87,12 +86,12 @@ module.exports = {
             const values = [registradorId, limit, offset];
             db.query(sql, values, (error, result) => {
                 if(error){
-                    reject(error)
+                    reject(error);
                 }else{
-                    resolve(result)
+                    resolve(result);
                 }
-            })
-        })
+            });
+        });
     },
     lestPessoas: async (offset, limit, id) => {
         return new Promise((resolve, reject) => {
@@ -155,14 +154,11 @@ module.exports = {
                     reject(error);
                 } else {
                     resolve(result);
-                    console.log(result)
                 }
             });
         });
     },
-
     update: async (pessoa_id, usuario_id, newData) => {
-
         return new Promise((resolve, reject) => {
             const data_registro = new Date();
             const {nome, telefone, email, zona, secao, cpf, rg, rua, bairro, cep, data_nascimento, numero, complemento, cidade, estado, pais} = newData;
@@ -205,12 +201,12 @@ module.exports = {
             const values = [id];
             db.query(sql, values, (error, result) => {
                 if(error){
-                    reject(error)
+                    reject(error);
                 }else{
-                    resolve(result)
+                    resolve(result);
                 }
-            })
-        })
+            });
+        });
     },
     lestCreate: async () => {
         return new Promise((resolve, reject) => {
@@ -223,11 +219,11 @@ module.exports = {
 
             db.query(sql, values, (error, result) => {
                 if(error){
-                    reject(error)
+                    reject(error);
                 }else{
-                    resolve(result)
+                    resolve(result);
                 }
-            })
-        })
+            });
+        });
     }
 }    

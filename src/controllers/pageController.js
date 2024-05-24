@@ -3,7 +3,7 @@ const pessoaModel = require('../models/pessoaModel');
 const fs = require('fs');
 const path = require('path');
 const csv = require('csv-parser');
-const metadataSystem = require('../models/metadataSystem')
+const metadataSystem = require('../models/metadataSystem');
 
 async function getZonas() {
     const caminhoArquivo = path.resolve('src', 'public', 'arquivos', 'zonasEleitoraisAm.csv');
@@ -13,32 +13,30 @@ async function getZonas() {
 
         try {            
             fs.createReadStream(caminhoArquivo)
-                .pipe(csv())
-                .on('data', (row) => {
-                    // Processar cada linha do CSV
-                    zonas.push(row);
-                })
-                .on('end', () => {
-                    // Resolução da Promise após a leitura completa do CSV
-                    resolve(zonas);
-                })
-                .on('error', (error) => {
-                    // Rejeitar a Promise em caso de erro
-                    console.error('Erro ao ler o arquivo CSV:', error);
-                    reject(error);
-                });
+            .pipe(csv())
+            .on('data', (row) => {
+                // Processar cada linha do CSV
+                zonas.push(row);
+            })
+            .on('end', () => {
+                // Resolução da Promise após a leitura completa do CSV
+                resolve(zonas);
+            })
+            .on('error', (error) => {
+                // Rejeitar a Promise em caso de erro
+                console.error('Erro ao ler o arquivo CSV:', error);
+                reject(error);
+            });
         } catch (error) {
-            console.error(error);
             reject(error);
         }
     });
-}
-
+};
 async function getDataHome(req){
     try {
         const data = {
             admin: req.locals.admin,
-            zonas: await  getZonas(),
+            zonas: await getZonas(),
             public_id: req.locals.public_id,
             id_usuario: req.locals.id,
             name: req.locals.name,
@@ -47,11 +45,11 @@ async function getDataHome(req){
             registradores: await registradorModel.getByOffset(0, 100),
             lestPessoas: await pessoaModel.lestPessoas(0, 10, parseInt(req.locals.id))
         }
-        return data
+        return data;
     } catch (error) {
         throw new Error(error)
     }
-}
+};
 
 module.exports = {
     termosUso: (req, res) => {
@@ -68,10 +66,9 @@ module.exports = {
     },
     home: async (req, res) => {
         try {
-            const data = await getDataHome(req)
-            res.render('home', data)
+            const data = await getDataHome(req);
+            res.render('home', data);
         } catch (error) {
-            console.log(error)
             res.status('error', error)
         }
     },
@@ -90,7 +87,6 @@ module.exports = {
             public_id: req.locals.public_id,
             id_usuario: req.locals.id,
             name: req.locals.name
-    
         };
 
         res.render('cadastroRegistrador', data);
@@ -98,13 +94,13 @@ module.exports = {
     cadastroPessoa: async (req, res) => {
         // pagina publica onde pessoas iram se cadastrar sem estar logadas
         const zonasEleirorais = await getZonas();
-        const public_id = req.query.ref
+        const public_id = req.query.ref;
         const data = {
             zonasEleirorais: zonasEleirorais,
             typeUser: req.locals.typeUser,
             public_id: public_id,
             name: req.locals.name,
-        }
+        };
   
         res.render('cadastroPessoa', data);
     },
@@ -112,11 +108,11 @@ module.exports = {
         const limit = req.query.limit || 20;
         const offset = req.query.offset || 0;
    
-        let pessoas = []
+        let pessoas = [];
         if(req.locals.admin == 1){
             pessoas = await pessoaModel.getByOffsetAll(offset, limit);
         }else{
-            const registradorId = req.locals.id
+            const registradorId = req.locals.id;
             pessoas = await pessoaModel.getByOffsetAndIdRegistrador(offset, limit, registradorId);
         }
 
@@ -127,6 +123,7 @@ module.exports = {
             id_usuario: req.locals.id,
             name: req.locals.name
         };
+
         res.render('listaPessoa', data);
     },
     updatePessoa: async (req, res) => {
@@ -141,6 +138,7 @@ module.exports = {
             id_usuario: req.locals.id,
             name: req.locals.name
         };
+        
         res.render('updatePessoa', data);
     }
 }

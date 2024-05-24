@@ -17,11 +17,10 @@ function checkAuth(req, res, next){
         if(payload.valid == false) throw new Error('Acesso negado!, token invalido');
 
         //SALVANDO NA REQUISIÇÃO INFORMAÇÕES DO USUARIO
-        req.locals = payload 
+        req.locals = payload;
         next();
         
     } catch (error) {
-        console.log("===> Error: ", error.message)
         res.redirect('/login')  
     }
 };

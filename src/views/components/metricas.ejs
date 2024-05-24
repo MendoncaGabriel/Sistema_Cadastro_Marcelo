@@ -137,7 +137,6 @@
         const key = event.which || e.keyCode;
         if(key !== 13 ) return;
         const pessoas = await getBySecao(inputSecao.value)
-        console.log(pessoas)
         changeTable(pessoas.result)
     })
 

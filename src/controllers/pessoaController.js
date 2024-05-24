@@ -20,7 +20,6 @@ module.exports = {
             const id = parseInt(req.params.id);
             const result = await  pessoaModel.getById(id);
             res.status(200).json({msg: "Consulta realizada com sucesso", result})
-
         } catch (error) {
             res.status(500).json({msg: error.message})
         }
@@ -28,10 +27,8 @@ module.exports = {
     getByDate: async (req, res) => {
         try {
             const data = req.params.data;
-
             const result = await  pessoaModel.getByDate(data);
-            res.status(200).json({msg: "Consulta realizada com sucesso", result})
-
+            res.status(200).json({msg: "Consulta realizada com sucesso", result});
         } catch (error) {
             res.status(500).json({msg: error.message})
         }
@@ -50,7 +47,6 @@ module.exports = {
         try {
             const secao = parseInt(req.params.secao);
             const result = await  pessoaModel.getBySecao(secao);
-  
             res.status(200).json({msg: "Consulta realizada com sucesso", result});
         } catch (error) {
             res.status(500).json({msg: error.message});
@@ -71,7 +67,6 @@ module.exports = {
             const result = await  pessoaModel.getByName(name);
             res.status(200).json({msg: "Consulta realizada com sucesso", result});
         } catch (error) {
-            console.log(error)
             res.status(500).json({msg: error.message});
         };
     },
@@ -90,10 +85,7 @@ module.exports = {
             const usuario_id = parseInt(req.locals.id);
             const data = req.body
             console.log(pessoa_id, usuario_id)
- 
-     
-            const result = await pessoaModel.update(pessoa_id,usuario_id, data);
-            console.log(result)
+            await pessoaModel.update(pessoa_id,usuario_id, data);
             res.status(200).json({msg: "Pessoa atualizada com sucesso!"});
         } catch (error) {
             res.status(500).json({msg: error.message});
@@ -102,7 +94,6 @@ module.exports = {
     delete: async (req, res) => {
         try {
             const id = req.params.id;
-          
             await pessoaModel.delete(id);
             res.status(200).json({msg: "Pessoa removida com sucesso!"});
         } catch (error) {
