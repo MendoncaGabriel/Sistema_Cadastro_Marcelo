@@ -72,7 +72,7 @@ module.exports = {
             res.render('home', data)
         } catch (error) {
             console.log(error)
-            res.render('500')
+            res.status('error', error)
         }
     },
     cadastroRegistrador: async (req, res) => {
