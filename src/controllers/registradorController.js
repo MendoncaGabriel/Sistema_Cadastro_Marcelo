@@ -16,7 +16,7 @@ module.exports = {
     getByOffset: async (req, res) => {
         try {            
             req.query.offset || 0;
-            req.query.limit || 10;
+            req.query.limit || 100;
             const result = await registradorModel.getByOffset(offset, limit);
             res.status(200).json({msg: "Registradores pegos via lista offset", result});
         } catch (error) {
@@ -36,6 +36,11 @@ module.exports = {
         try {
             const id = req.params.id;
             const {login, password, name, email} = req.body;
+            if(login == "admin") throw new Error("Não e possivel alterar este usuário!");
+
+            console.log("passou!")
+
+            return 
             await registradorModel.update(login, password, name, email, id);
             res.status(200).json({msg: 'Registrador atualizado com sucesso!'});
         } catch (error) {

@@ -12,8 +12,10 @@ module.exports = {
             db.query(sql, values, (error, data) => {
                 if(error){
                     reject(error);
+                    console.log("erro: ",error)
                 }else{
                     resolve(data);
+                    console.log("resolve: ", data)
                 }
             });
         });

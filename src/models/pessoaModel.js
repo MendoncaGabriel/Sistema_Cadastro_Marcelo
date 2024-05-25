@@ -163,6 +163,7 @@ module.exports = {
             const data_registro = new Date();
             const {nome, telefone, email, zona, secao, cpf, rg, rua, bairro, cep, data_nascimento, numero, complemento, cidade, estado, pais} = newData;
             
+            
             const values = [data_registro, nome, telefone, email, zona, secao, cpf, rg, rua, bairro, cep, data_nascimento, numero, complemento, cidade, estado, pais, usuario_id, pessoa_id];
             const sql = `
             UPDATE pessoas SET 

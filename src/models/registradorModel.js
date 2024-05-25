@@ -42,11 +42,15 @@ module.exports = {
     },
     update: async (login, password, name, email, id) => {
         return new Promise(async (resolve, reject)=>{
+
+            if(name == "admin") return reject("Não e possivel alterar este usuário!")
+
             const salt = await bycript.genSalt(10);
             const passwordhash = await bycript.hash(password, salt);
             const date = new Date();
             const sql = "UPDATE usuarios SET login = ?, password = ?, name = ?, email = ?, date = ? WHERE id = ?;";
             const values = [login, passwordhash, name, email, date, id];
+
 
             db.query(sql, values, (error, data) => {
                 if(error){
@@ -76,7 +80,11 @@ module.exports = {
     },
     getByOffset: (offset, limit) => {
         return new Promise((resolve, reject) => {
-            const sql = "SELECT id, name, login, email, date FROM usuarios WHERE ativo = 1  LIMIT ? OFFSET ?";
+            const sql = `SELECT id, name, login, email, date 
+            FROM usuarios 
+            WHERE ativo = 1 AND admin != 1
+            LIMIT ? OFFSET ?
+            `;
             const values = [limit, offset];
 
             db.query(sql, values, (error, result) => {

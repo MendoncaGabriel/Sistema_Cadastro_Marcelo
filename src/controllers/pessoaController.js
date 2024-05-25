@@ -36,7 +36,7 @@ module.exports = {
     getByOffset: async (req, res) => {
         try {
             const offset = parseInt(req.query.offset || 1);
-            const limit = parseInt(req.query.limit || 10);
+            const limit = parseInt(req.query.limit || 100);
             const result = await pessoaModel.getByOffset(offset, limit);
             res.status(200).json({msg: "Consulta offset realizada com sucesso", result});
         } catch (error) {
