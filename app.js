@@ -1,4 +1,5 @@
 require('./database')
+const cookieParser = require('cookie-parser');
 const createError = require('http-errors');
 const compression = require('compression');
 const express = require('express');
