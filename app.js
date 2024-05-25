@@ -1,3 +1,4 @@
+require('./database')
 const createError = require('http-errors');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
@@ -5,7 +6,6 @@ const express = require('express');
 const logger = require('morgan');
 const path = require('path');
 require('dotenv').config();
-
 const app = express();
 
 app.use(compression({
