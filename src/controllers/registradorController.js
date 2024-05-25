@@ -16,7 +16,7 @@ module.exports = {
     getByOffset: async (req, res) => {
         try {            
             req.query.offset || 0;
-            req.query.limit || 10;
+            req.query.limit || 100;
             const result = await registradorModel.getByOffset(offset, limit);
             res.status(200).json({msg: "Registradores pegos via lista offset", result});
         } catch (error) {
